@@ -1282,7 +1282,7 @@ var initialPinkie = {
     x: 0, 
     y: 0, 
     baseX: 0, 
-    baseY: 276, 
+    baseY: 320, 
     vx: 0, 
     vy: 0, 
     sound: new Sound.RepeatSound("sfx/smile.ogg", 0.3)
@@ -1302,7 +1302,7 @@ var initialCoin = {
     id: "coin", 
     css: "", 
     x: 1600, 
-    y: 40, 
+    y: 140, 
     baseX: 0, 
     baseY: 0, 
     vx: -6, 
@@ -1329,10 +1329,10 @@ var ground = Signal["~>"](Signal.functorSignal)(frameRate)(function (n) {
     return {
         id: "ground", 
         css: "", 
-        x: (n / 33 % 64) * -8, 
+        x: (n / 33 % 320) * -8, 
         y: 0, 
         baseX: -128, 
-        baseY: 384, 
+        baseY: 320, 
         vx: 0, 
         vy: 0, 
         sound: Sound.Quiet.value

@@ -42,7 +42,7 @@ body {
     position: absolute;
     width: 140px;
     height: 126px;
-    top: -128px;
+    top: -256px;
     left: 64px;
     background: url(../gfx/pie-dash.gif);
 }
@@ -59,7 +59,7 @@ body {
     position: absolute;
     width: 3840px;
     height: 256px;
-    top: 384px;
+    top: 320px;
     left: -128px;
     background: url(../gfx/map.png);
     z-index: -1;
