@@ -88,7 +88,7 @@ let pinkieStream = tick.scan({
     if (keys[0] === "space") {
         if (p.y === 0) {
             p.vy = -20;
-            new Audio("../purescript-magic/sfx/jump.ogg").play();
+            new Audio("../../media/sound/jump.mp3").play();
         }
     }
 
@@ -107,7 +107,7 @@ let coinStream = pinkieStream
         c = velocity(c);
         // will be changing this if she touched, so otherwise..
         if (c.vy === 0 && false/*&& intersects(c, pinkie)*/) {
-            new Audio("../purescript-magic/sfx/coin.ogg").play();
+            new Audio("../../media/sound/coin.mp3").play();
             c.vx = 0;
             c.vy = -1;
         }
