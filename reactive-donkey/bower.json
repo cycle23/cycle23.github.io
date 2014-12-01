@@ -1,0 +1,28 @@
+{
+  "name": "reactive-donkey",
+  "main": "donkey.js",
+  "version": "0.0.0",
+  "homepage": "https://github.com/cycle23/cycle23.github.io",
+  "description": "Reactive JS Donkey Game",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "reactive",
+    "js",
+    "rxjs",
+    "donkey"
+  ],
+  "authors": [
+    "cycle23x@gmail.com"
+  ],
+  "license": "UNKNOWN",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
