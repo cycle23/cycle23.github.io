@@ -116,7 +116,7 @@ let pinkieStream = Rx.Observable.zipArray(tick, haterStream).scan({
 }, (p, [keys, hater]) => {
     p = velocity(p);
 
-    if (intersects(p, hater)) {
+    if (intersects(p, hater) && !p.gameOver) {
         p.gameOver = true;
         // uses react
         p.id = "pinkie gameover";
