@@ -5,6 +5,16 @@
  * Bodil Stokke's Reactive Game Development for the Discerning Hipster talk at jQuery conference, September 2014.
  */
 
+const canvas = document.getElementById("canvas");
+/*
+$("<div id='ground'></div>").appendTo(canvas);
+$("<div id='hater'></div>").appendTo(canvas);
+$("<div id='pinkie'></div>").appendTo(canvas);
+$("<div id='coin'></div>").appendTo(canvas);
+$("<div id='stat'></div>").appendTo(canvas);
+*/
+
+
 // these were explained as inefficient but simple storage copiers to keep items immutable
 // note: let use from javascript 1.7+ for more fine grained block scope than var
 function extend(target, src) {
@@ -19,24 +29,16 @@ function assoc() {
     return out;
 }
 
+// (final | 0 will drop any decimal portion)
+function coordBI(c, baseC) {
+    return (c + (baseC || 0) | 0);
+}
+
 // just a quick helper to detect if an item is in the view
 function onscreen(node) {
     return !(node.x < -300 || node.y < -1000 || node.y > 1000);
 }
 
-// mousetrap binding, using emca6/harmony lambda and reactive subject
-function bindKey(key) {
-    let sub = new Rx.Subject();
-    Mousetrap.bind(key, () => {
-        sub.onNext(key);
-    });
-    return sub;
-}
-
-// (final | 0 will drop any decimal portion)
-function coordBI(c, baseC) {
-    return (c + (baseC || 0) | 0);
-}
 
 function updateElement(node) {
     $(node.id)
@@ -44,6 +46,7 @@ function updateElement(node) {
         .css({
             left: coordBI(node.x, node.baseX) + "px",
             top: coordBI(node.y, node.baseY) + "px"
+
         })
         .text(node.text);
 }
@@ -67,15 +70,31 @@ function intersects(c, p) {
     return (Math.abs(cx - px) < 100 && Math.abs(cy - py) < 100);
 }
 
-function renderScene(nodes) {
-    nodes.forEach(updateElement);
+function makeElement(node) {
+    return React.DOM.div({
+        className: node.id,
+        style: {
+            left: (node.x + (node.baseX || 0)) | 0 + "px",
+            top: (node.y + (node.baseY || 0)) | 0 + "px"
+        }
+    });
 }
 
-const canvas = $("#canvas");
-$("<div id='ground'></div>").appendTo(canvas);
-$("<div id='pinkie'></div>").appendTo(canvas);
-$("<div id='coin'></div>").appendTo(canvas);
-$("<div id='stat'></div>").appendTo(canvas);
+function renderScene(nodes) {
+    return React.renderComponent(
+        React.DOM.div(null, nodes.map(makeElement)),
+        canvas
+    );
+}
+
+// mousetrap binding, using emca6/harmony lambda and reactive subject
+function bindKey(key) {
+    let sub = new Rx.Subject();
+    Mousetrap.bind(key, () => {
+        sub.onNext(key);
+    });
+    return sub;
+}
 
 // - tick is the observable interval at 33ms
 // - buffer will create an array of the number of
@@ -85,59 +104,75 @@ let tick = bindKey("space")
 
 let groundStream = Rx.Observable.interval(33)
 .map((x) => ({
-        id: "#ground",
+        id: "ground",
         baseX: 0,
         y: 320,
         x: ((x % 280) * -8)
     }));
 
 
+let initialHater = {
+    id: "hater",
+    vx: -8, vy: 0,
+    x: 1600, y: 300
+};
+
+let haterStream= tick.scan(initialHater, (c, nope) => {
+    c = velocity(c);
+    return onscreen(c) ? c: initialHater;
+});
+
 // pinkie is the character
 // velocity will be applied and then gravity adjusted each
 // tick scan
 // the keys are mapped here from tick buffer
-let pinkieStream = tick.scan({
-    id: "#pinkie",
+let pinkieStream = Rx.Observable.zipArray(tick, haterStream).scan({
+    id: "pinkie",
     baseY: 320,
     x: 0, y: 0,
-    vx: 0, vy: 0
-}, (p, keys) => {
+    vx: 0, vy: 0,
+    points: 0,
+    gameOver: false
+}, (p, [keys, hater]) => {
     p = velocity(p);
 
+    if (intersects(p, hater)) {
+        p.gameOver = true;
+        // uses react
+        p.id = "pinkie gameover";
+        p.points = 0;
+        p.vy = -20;
+        new Audio("../../media/sound/gameover.mp3").play();
+    }
+    // just drop out.. takeWhile ensures we start over
+    if (p.gameOver) {
+        p.vy += 0.5;
+        p.points += 1;
+        return p;
+    }
     p.vy += 0.98;
 
+    // keep from going under
     if (p.y >= 0 && p.vy > 0) {
-        p.y = 0; p.vy = 0;
+        p.id = "pinkie";
+        p.y = 0;
+        p.vy = 0;
     }
 
     if (keys[0] === "space") {
         if (p.y === 0) {
+            p.id = "pinkie jumping";
             p.vy = -20;
             new Audio("../../media/sound/jump.mp3").play();
         }
     }
 
-
-
     return p;
 }).takeWhile(onscreen);
 
-let initialStat = {
-    id: "#stat",
-    baseX: 0, baseY: 0,
-    x: 0, y: 0,
-    text: "Init.."
-};
-
-let statStream = pinkieStream
-    .scan(initialStat, (s, pinkie) => {
-        s.text = "Donkey y+baseY: " + coordBI(pinkie.y, pinkie.baseY);
-        return s;
-    });
-
 
 let initialCoin = {
-    id: "#coin",
+    id: "coin",
     vx: -6, vy: 0,
     x: 1600, y: 40
 };
@@ -158,78 +193,19 @@ let coinStream = pinkieStream
         return onscreen(c) ? c : initialCoin;
     });
 
+let initialStat = {
+    id: "stat",
+    x: 0, y: 0,
+    points: 0,
+    text: "Init.."
+};
+
+let statStream = pinkieStream
+    .scan(initialStat, (s, pinkie) => {
+        s.text = "Points: " + pinkie.points;
+        return s;
+    });
 
 Rx.Observable
-    .zipArray(groundStream, pinkieStream, coinStream, statStream)
+    .zipArray(groundStream, pinkieStream, coinStream, statStream, haterStream)
     .subscribe(renderScene);
-
-/**
- * @author Peter Kelley
- * @author pgkelley4@gmail.com
- */
-
-/**
- * See if two line segments intersect. This uses the
- * vector cross product approach described below:
- * http://stackoverflow.com/a/565282/786339
- *
- * @param {Object} p point object with x and y coordinates
- *  representing the start of the 1st line.
- * @param {Object} p2 point object with x and y coordinates
- *  representing the end of the 1st line.
- * @param {Object} q point object with x and y coordinates
- *  representing the start of the 2nd line.
- * @param {Object} q2 point object with x and y coordinates
- *  representing the end of the 2nd line.
- */
-function doLineSegmentsIntersect(p, p2, q, q2) {
-    var r = subtractPoints(p2, p);
-    var s = subtractPoints(q2, q);
-
-    var uNumerator = crossProduct(subtractPoints(q, p), r);
-    var denominator = crossProduct(r, s);
-
-    if (uNumerator == 0 && denominator == 0) {
-        // colinear, so do they overlap?
-        return ((q.x - p.x < 0) != (q.x - p2.x < 0) != (q2.x - p.x < 0) != (q2.x - p2.x < 0)) ||
-            ((q.y - p.y < 0) != (q.y - p2.y < 0) != (q2.y - p.y < 0) != (q2.y - p2.y < 0));
-    }
-
-    if (denominator == 0) {
-        // lines are paralell
-        return false;
-    }
-
-    var u = uNumerator / denominator;
-    var t = crossProduct(subtractPoints(q, p), s) / denominator;
-
-    return (t >= 0) && (t <= 1) && (u >= 0) && (u <= 1);
-}
-
-/**
- * Calculate the cross product of the two points.
- *
- * @param {Object} point1 point object with x and y coordinates
- * @param {Object} point2 point object with x and y coordinates
- *
- * @return the cross product result as a float
- */
-function crossProduct(point1, point2) {
-    return point1.x * point2.y - point1.y * point2.x;
-}
-
-/**
- * Subtract the second point from the first.
- *
- * @param {Object} point1 point object with x and y coordinates
- * @param {Object} point2 point object with x and y coordinates
- *
- * @return the subtraction result as a point object.
- */
-function subtractPoints(point1, point2) {
-    var result = {};
-    result.x = point1.x - point2.x;
-    result.y = point1.y - point2.y;
-
-    return result;
-}
