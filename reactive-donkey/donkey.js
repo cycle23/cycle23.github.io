@@ -6,6 +6,8 @@
  */
 
 const canvas = document.getElementById("canvas");
+new Audio("../../media/music/coldwet.mp3").play();
+
 
 // these were explained as inefficient but simple storage copiers to keep items immutable
 // note: let use from javascript 1.7+ for more fine grained block scope than var
@@ -38,7 +40,6 @@ function velocity(node) {
         y: node.y + node.vy
     });
 }
-
 
 function intersects(c, p) {
     let px = coordBI(p.x, p.baseX);
