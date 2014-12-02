@@ -1,0 +1,24 @@
+.outerouter {
+ width: 800px;
+ height: 800px;
+ background: #EEDDBB;
+ padding: 50px;
+} 
+
+.outer {
+ width: 500px;
+ margin: 10px;
+ background: #CCBBAA;
+ padding: 10px;
+}
+
+.block-level {
+    width: 300px;
+    margin: 20px;
+    padding: 20px;
+    position: relative;
+    float: center;
+    background: #AABB66;
+    font-family: Helvetica;
+}
+
