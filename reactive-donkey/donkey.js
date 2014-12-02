@@ -6,7 +6,6 @@
  */
 
 const canvas = document.getElementById("canvas");
-new Audio("../../media/music/coldwet.mp3").play();
 
 
 // these were explained as inefficient but simple storage copiers to keep items immutable
@@ -190,6 +189,7 @@ let statStream = coinStream
         return s;
     });
 
+new Audio("../../media/music/coldwet.mp3").play();
 
 Rx.Observable
     .zipArray(groundStream, pinkieStream, coinStream, statStream, haterStream)
