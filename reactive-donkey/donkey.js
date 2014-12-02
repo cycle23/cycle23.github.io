@@ -6,14 +6,6 @@
  */
 
 const canvas = document.getElementById("canvas");
-/*
-$("<div id='ground'></div>").appendTo(canvas);
-$("<div id='hater'></div>").appendTo(canvas);
-$("<div id='pinkie'></div>").appendTo(canvas);
-$("<div id='coin'></div>").appendTo(canvas);
-$("<div id='stat'></div>").appendTo(canvas);
-*/
-
 
 // these were explained as inefficient but simple storage copiers to keep items immutable
 // note: let use from javascript 1.7+ for more fine grained block scope than var
@@ -37,18 +29,6 @@ function coordBI(c, baseC) {
 // just a quick helper to detect if an item is in the view
 function onscreen(node) {
     return !(node.x < -300 || node.y < -1000 || node.y > 1000);
-}
-
-
-function updateElement(node) {
-    $(node.id)
-        .attr("class", node.classes || "")
-        .css({
-            left: coordBI(node.x, node.baseX) + "px",
-            top: coordBI(node.y, node.baseY) + "px"
-
-        })
-        .text(node.text);
 }
 
 function velocity(node) {
@@ -77,7 +57,7 @@ function makeElement(node) {
             left: (node.x + (node.baseX || 0)) | 0 + "px",
             top: (node.y + (node.baseY || 0)) | 0 + "px"
         }
-    });
+}, node.text);
 }
 
 function renderScene(nodes) {
@@ -182,13 +162,13 @@ let coinStream = pinkieStream
     .scan(initialCoin, (c, pinkie) => {
         c = velocity(c);
         // will be changing this if she touched, so otherwise..
+        if (c.vy < 0) {
+            c.vy = c.vy * 2;
+        }
         if (c.vy === 0 && intersects(c, pinkie)) {
             new Audio("../../media/sound/coin.mp3").play();
             c.vx = 0;
             c.vy = -1;
-        }
-        if (c.vy < 0) {
-            c.vy = c.vy * 2;
         }
         return onscreen(c) ? c : initialCoin;
     });
@@ -200,11 +180,15 @@ let initialStat = {
     text: "Init.."
 };
 
-let statStream = pinkieStream
-    .scan(initialStat, (s, pinkie) => {
-        s.text = "Points: " + pinkie.points;
+let statStream = coinStream
+    .scan(initialStat, (s, coin) => {
+        if (coin.vy === -1) {
+            s.points += 1;
+        }
+        s.text = "Points: " + s.points;
         return s;
     });
+
 
 Rx.Observable
     .zipArray(groundStream, pinkieStream, coinStream, statStream, haterStream)
