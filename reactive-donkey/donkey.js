@@ -3,6 +3,7 @@
  *
  * Adapted from https://www.youtube.com/watch?v=FLSNm7AIBoM
  * Bodil Stokke's Reactive Game Development for the Discerning Hipster talk at jQuery conference, September 2014.
+ * And merged with the other versions (boogalo and purescript-is-magic from her github) as well as my own custom code.
  */
 
 const canvas = document.getElementById("canvas");
@@ -93,12 +94,14 @@ let groundStream = Rx.Observable.interval(33)
 
 let initialHater = {
     id: "hater",
-    vx: -8, vy: 0,
+    vx: -10, vy: 0,
     x: 1600, y: 300
 };
 
 let haterStream= tick.scan(initialHater, (c, nope) => {
     c = velocity(c);
+    //h = velocity(initialHater);
+    //h.vx = -8 - (Math.random()*10);
     return onscreen(c) ? c: initialHater;
 });
 
@@ -111,7 +114,7 @@ let pinkieStream = Rx.Observable.zipArray(tick, haterStream).scan({
     baseY: 320,
     x: 0, y: 0,
     vx: 0, vy: 0,
-    points: 0,
+    lives: 3,
     gameOver: false
 }, (p, [keys, hater]) => {
     p = velocity(p);
@@ -120,17 +123,16 @@ let pinkieStream = Rx.Observable.zipArray(tick, haterStream).scan({
         p.gameOver = true;
         // uses react
         p.id = "pinkie gameover";
-        p.points = 0;
         p.vy = -20;
         new Audio("../../media/sound/gameover.mp3").play();
+        p.lives -= 1;
     }
     // just drop out.. takeWhile ensures we start over
     if (p.gameOver) {
         p.vy += 0.5;
-        p.points += 1;
         return p;
     }
-    p.vy += 0.98;
+    p.vy += 0.88;
 
     // keep from going under
     if (p.y >= 0 && p.vy > 0) {
@@ -142,7 +144,7 @@ let pinkieStream = Rx.Observable.zipArray(tick, haterStream).scan({
     if (keys[0] === "space") {
         if (p.y === 0) {
             p.id = "pinkie jumping";
-            p.vy = -20;
+            p.vy = -22;
             new Audio("../../media/sound/jump.mp3").play();
         }
     }
@@ -154,7 +156,8 @@ let pinkieStream = Rx.Observable.zipArray(tick, haterStream).scan({
 let initialCoin = {
     id: "coin",
     vx: -6, vy: 0,
-    x: 1600, y: 40
+    x: 1600, y: 40,
+    points: 0
 };
 
 // want to be able to detect coin to pinkie
@@ -169,8 +172,18 @@ let coinStream = pinkieStream
             new Audio("../../media/sound/coin.mp3").play();
             c.vx = 0;
             c.vy = -1;
+            c.points += 1;
         }
-        return onscreen(c) ? c : initialCoin;
+        if (c.x < -300) {
+            return initialCoin;
+        }
+        if (c.y < -1000) {
+            v = velocity(initialCoin);
+            v.vx = v.vx * (c.points+1);
+            v.points = c.points;
+            return v;
+        }
+        return c;
     });
 
 let initialStat = {
@@ -183,7 +196,7 @@ let initialStat = {
 let statStream = coinStream
     .scan(initialStat, (s, coin) => {
         if (coin.vy === -1) {
-            s.points += 1;
+            s.points += coin.points;
         }
         s.text = "Points: " + s.points;
         return s;
