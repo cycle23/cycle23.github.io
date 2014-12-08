@@ -142,7 +142,7 @@ let pinkieStream = Rx.Observable.zipArray(tick, haterStream).scan({
 
     if (keys[0] === "space" ||
         keys[0] === "up" ||
-        keys[0] != undefined && keys[0].touches[0] != undefined) {
+        (keys[0] != undefined && keys[0].touches[0] != undefined)) {
         if (p.y === 0) {
             p.id = "pinkie jumping";
             p.vy = -22;
