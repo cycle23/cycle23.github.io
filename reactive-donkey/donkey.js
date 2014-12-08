@@ -8,7 +8,6 @@
 
 const canvas = document.getElementById("canvas");
 
-
 // these were explained as inefficient but simple storage copiers to keep items immutable
 // note: let use from javascript 1.7+ for more fine grained block scope than var
 function extend(target, src) {
@@ -47,7 +46,6 @@ function intersects(c, p) {
     let py = coordBI(p.y, p.baseY);
     let cy = coordBI(c.y, c.baseY);
 
-
     return (Math.abs(cx - px) < 100 && Math.abs(cy - py) < 100);
 }
 
@@ -80,7 +78,7 @@ function bindKey(key) {
 // - tick is the observable interval at 33ms
 // - buffer will create an array of the number of
 //   space events during the interval
-let tick = bindKey("space")
+let tick = Rx.Observable.merge(bindKey("space"),bindKey("up"),Rx.DOM.fromEvent(canvas,"touchstart"))
 .buffer(Rx.Observable.interval(33));
 
 let groundStream = Rx.Observable.interval(33)
@@ -98,11 +96,12 @@ let initialHater = {
     x: 1600, y: 300
 };
 
-let haterStream= tick.scan(initialHater, (c, nope) => {
-    c = velocity(c);
+let haterStream= tick.scan(initialHater,
+    (h, t) => {
+    h = velocity(h);
     //h = velocity(initialHater);
     //h.vx = -8 - (Math.random()*10);
-    return onscreen(c) ? c: initialHater;
+    return onscreen(h) ? h: initialHater;
 });
 
 // pinkie is the character
@@ -141,12 +140,15 @@ let pinkieStream = Rx.Observable.zipArray(tick, haterStream).scan({
         p.vy = 0;
     }
 
-    if (keys[0] === "space") {
+    if (keys[0] === "space" || keys[0] === "up" || keys[0] === "touchstart") {
         if (p.y === 0) {
             p.id = "pinkie jumping";
             p.vy = -22;
             new Audio("../../media/sound/jump.mp3").play();
         }
+    }
+    else if (keys != undefined && keys[0] != undefined) {
+        alert("keys: " + keys[0]);
     }
 
     return p;
