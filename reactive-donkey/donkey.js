@@ -96,11 +96,12 @@ let initialHater = {
     x: 1600, y: 300
 };
 
+var totalScore = 0;
+
 let haterStream= tick.scan(initialHater,
     (h, t) => {
     h = velocity(h);
-    //h = velocity(initialHater);
-    //h.vx = -8 - (Math.random()*10);
+    h.vx = -8 - (totalScore*2);
     return onscreen(h) ? h: initialHater;
 });
 
@@ -203,11 +204,12 @@ let statStream = coinStream
             s.points += coin.points;
         }
         s.text = "Points: " + s.points;
+        totalScore = s.points;
         return s;
     });
 
 new Audio("../../media/music/coldwet.mp3").play();
 
 Rx.Observable
-    .zipArray(groundStream, pinkieStream, coinStream, statStream, haterStream)
+    .zipArray(groundStream, haterStream, pinkieStream, coinStream, statStream)
     .subscribe(renderScene);
