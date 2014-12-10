@@ -22,8 +22,10 @@ $.mbAudio.sounds = {
 function audioIsReady() {
     setTimeout(function () {
         $("#loading").hide();
-        if(isStandAlone || !isDevice)
+        if(isStandAlone || !isDevice) {
+            alert("playing background");
             $.mbAudio.play('backgroundSprite', 'level1');
+        }
         startGame();
     }, 3000);
 }

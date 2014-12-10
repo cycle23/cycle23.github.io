@@ -142,7 +142,8 @@ let pinkieStream = Rx.Observable.zipArray(tick, haterStream).scan({
     p = velocity(p);
 
     if (intersects(p, hater) && !p.gameOver) {
-        alert("...hat'n");
+        // seeing this function hit 3x on Chrome with gameOver not true
+        // likely due to the merge before?
         p.gameOver = true;
         // uses react
         p.id = "pinkie gameover";
@@ -242,6 +243,5 @@ function startGame() {
 };
 
 function gameOver() {
-    alert("Game Over");
-    setTimeout ( function(){location.reload(true);}, 3000);
+    location.reload(true);
 }
