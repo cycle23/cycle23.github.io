@@ -148,9 +148,7 @@ let pinkieStream = Rx.Observable.zipArray(tick, haterStream).scan({
         // uses react
         p.id = "pinkie gameover";
         p.vy = -20;
-        //if (!(isChrome && isAndroid)) {
-            $.mbAudio.play('effectSprite', 'gameover');
-        //}
+        $.mbAudio.play('effectSprite', 'gameover');
         setTimeout( function(){ gameOver(); }, 10000);
         p.lives -= 1;
     }
@@ -174,9 +172,7 @@ let pinkieStream = Rx.Observable.zipArray(tick, haterStream).scan({
         if (p.y === 0) {
             p.id = "pinkie jumping";
             p.vy = -22;
-        //    if (!(isChrome && isAndroid)) {
-                $.mbAudio.play('effectSprite', 'jump');
-        //    }
+            $.mbAudio.play('effectSprite', 'jump');
         }
     }
     else if (keys != undefined && keys[0] != undefined) {
@@ -203,9 +199,7 @@ let coinStream = pinkieStream
             c.vy = c.vy * 2;
         }
         if (c.vy === 0 && !pinkie.gameOver && intersects(c, pinkie)) {
-        //    if (!(isChrome && isAndroid)) {
-                $.mbAudio.play('effectSprite', 'coin');
-        //    }
+            $.mbAudio.play('effectSprite', 'coin');
             c.vx = 0;
             c.vy = -1;
             c.points += 1;
