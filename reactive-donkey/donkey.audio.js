@@ -13,8 +13,8 @@ $.mbAudio.sounds = {
         mp3   : "../media/sound/donkeyEffects.mp3",
         sprite: {
             coin      : {id: "coin", start: 0, end: 0.5, loop: false},
-            jump      : {id: "jump", start: 1, end: 1.4, loop: false},
-            gameover  : {id: "gameover", start: 2, end: 7.4, loop: false}
+            jump      : {id: "jump", start: 0.99, end: 1.49, loop: false},
+            gameover  : {id: "gameover", start: 1.9, end: 7.4, loop: false}
         }
     }
 };

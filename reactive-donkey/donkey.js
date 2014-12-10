@@ -153,6 +153,10 @@ let pinkieStream = Rx.Observable.zipArray(tick, haterStream).scan({
     // just drop out.. takeWhile ensures we start over
     if (p.gameOver) {
         p.vy += 0.5;
+        // and meanwhile, set a timer for gameover to trigger alert and reload
+        if (p.y >= 250) {
+            setTimeout( function(){ gameOver(); }, 4000);
+        }
         return p;
     }
     p.vy += 0.88;
@@ -197,7 +201,7 @@ let coinStream = pinkieStream
         if (c.vy < 0) {
             c.vy = c.vy * 2;
         }
-        if (c.vy === 0 && intersects(c, pinkie)) {
+        if (c.vy === 0 && !pinkie.gameOver && intersects(c, pinkie)) {
             //new Audio("../../media/sound/coin.mp3").play();
             $.mbAudio.play('effectSprite', 'coin');
             c.vx = 0;
@@ -238,3 +242,8 @@ function startGame() {
         .zipArray(groundStream, haterStream, pinkieStream, coinStream, statStream)
         .subscribe(renderScene);
 };
+
+function gameOver() {
+    alert("Game Over");
+    location.reload(true);
+}
