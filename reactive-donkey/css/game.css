@@ -13,12 +13,28 @@
     left: 0;
     width: 512px;
     height: 512px;
-    background: url(../../purescript-magic/gfx/clouds.png);
+    background: url(https://cycle23.github.io/media/images/clouds.png);
     background-size: cover;
     overflow: hidden;
     -moz-transform-origin: 0 0;
     -webkit-transform-origin: 0 0;
     transform-origin: 0 0;
+}
+
+#start {
+    border: 1px solid black;
+    height: 100px;
+    width: 200px;
+    margin: 0 auto;
+    vertical-align:center;
+}
+
+#startButton {
+    border: 1px solid black;
+    height: 100px;
+    width: 200px;
+    margin: 0 auto;
+    vertical-align:center;
 }
 
 .logo {
@@ -27,7 +43,7 @@
     top: 8px;
     width: 140px;
     height: 171px;
-    background: url(../../purescript-magic/gfx/logo.png);
+    background: url(https://cycle23.github.io/media/images/logo.png);
     background-size: cover;
     z-index: 100;
 }
@@ -38,15 +54,15 @@
     height: 126px;
     top: 320px;
     left: 64px;
-    background: url(../../purescript-magic/gfx/pie-dash.gif);
+    background: url(https://cycle23.github.io/media/animations/pie-dash.gif);
 }
 
 .pinkie.jumping {
-    background: url(../../purescript-magic/gfx/pie-jump.gif) !important;
+    background: url(https://cycle23.github.io/media/animations/pie-jump.gif) !important;
 }
 
 .pinkie.gameover {
-    background: url(../../purescript-magic/gfx/pie-oops.gif) !important;
+    background: url(https://cycle23.github.io/media/animations/pie-oops.gif) !important;
 }
 
 .ground {
@@ -55,7 +71,7 @@
     height: 256px;
     top: 320px;
     left: -128px;
-    background: url(../../purescript-magic/gfx/map.png);
+    background: url(https://cycle23.github.io/media/images/map.png);
     z-index: -1;
 }
 
@@ -64,7 +80,7 @@
     width: 150px;
     height: 113px;
     left: -512px;
-    background: url(../../purescript-magic/gfx/trollface.gif);
+    background: url(https://cycle23.github.io/media/animations/trollface.gif);
 }
 
 .coin {
@@ -72,7 +88,7 @@
     width: 128px;
     height: 128px;
     left: -512px;
-    background: url(../../purescript-magic/gfx/coin.gif);
+    background: url(https://cycle23.github.io/media/animations/coin.gif);
 }
 
 .stat {
