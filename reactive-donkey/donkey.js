@@ -242,5 +242,5 @@ function startGame() {
 
 function gameOver() {
     alert("Game Over");
-    location.reload(true);
+    setTimeout ( function(){location.reload(true);}, 3000);
 }
