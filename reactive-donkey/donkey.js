@@ -150,7 +150,7 @@ let pinkieStream = Rx.Observable.zipArray(tick, haterStream).scan({
         p.vy = -20;
         //new Audio("../../media/sound/gameover.mp3").play();
         $.mbAudio.play('effectSprite', 'gameover');
-        setTimeout( function(){ gameOver(); }, 7500);
+        setTimeout( function(){ gameOver(); }, 10000);
         p.lives -= 1;
     }
     // just drop out.. takeWhile ensures we start over
