@@ -8,6 +8,19 @@
 
 const canvas = document.getElementById("canvas");
 
+(function() {
+    function resizeCanvas() {
+        var canvas = document.getElementById("canvas");
+        var scale = window.innerHeight / canvas.clientHeight;
+        canvas.style.mozTransform = "scale(" + scale + ")";
+        canvas.style.webkitTransform = "scale(" + scale + ")";
+        canvas.style.transform = "scale(" + scale + ")";
+        canvas.style.width = (window.innerWidth / scale) + "px";
+    }
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+})();
+
 // these were explained as inefficient but simple storage copiers to keep items immutable
 // note: let use from javascript 1.7+ for more fine grained block scope than var
 function extend(target, src) {
@@ -77,8 +90,12 @@ function bindKey(key) {
 
 // - tick is the observable interval at 33ms
 // - buffer will create an array of the number of
-//   space events during the interval
-let tick = Rx.Observable.merge(bindKey("space"),bindKey("up"),Rx.DOM.fromEvent(canvas,"touchstart"))
+//   merged events during the interval
+// - but we are only reading the first event,
+//   and only by PinkieStream
+let tick = Rx.Observable.merge(bindKey("space"),
+                               bindKey("up"),
+                               Rx.DOM.fromEvent(canvas,"touchstart"))
 .buffer(Rx.Observable.interval(33));
 
 let groundStream = Rx.Observable.interval(33)
@@ -96,10 +113,15 @@ let initialHater = {
     x: 1600, y: 300
 };
 
+
+//let scoreStream = Rx.
+//let haterStream = Rx.Observable.zipArray(groundStream, scoreStream).scan(initialHater,
+//    (h, [g,s]) => {
+
 var totalScore = 0;
 
-let haterStream= tick.scan(initialHater,
-    (h, t) => {
+let haterStream= groundStream.scan(initialHater,
+    (h, g) => {
     h = velocity(h);
     h.vx = -8 - (totalScore*2);
     return onscreen(h) ? h: initialHater;
@@ -124,7 +146,8 @@ let pinkieStream = Rx.Observable.zipArray(tick, haterStream).scan({
         // uses react
         p.id = "pinkie gameover";
         p.vy = -20;
-        new Audio("../../media/sound/gameover.mp3").play();
+        //new Audio("../../media/sound/gameover.mp3").play();
+        $.mbAudio.play('effectSprite', 'gameover');
         p.lives -= 1;
     }
     // just drop out.. takeWhile ensures we start over
@@ -147,7 +170,8 @@ let pinkieStream = Rx.Observable.zipArray(tick, haterStream).scan({
         if (p.y === 0) {
             p.id = "pinkie jumping";
             p.vy = -22;
-            new Audio("../../media/sound/jump.mp3").play();
+            //new Audio("../../media/sound/jump.mp3").play();
+            $.mbAudio.play('effectSprite', 'jump');
         }
     }
     else if (keys != undefined && keys[0] != undefined) {
@@ -174,7 +198,8 @@ let coinStream = pinkieStream
             c.vy = c.vy * 2;
         }
         if (c.vy === 0 && intersects(c, pinkie)) {
-            new Audio("../../media/sound/coin.mp3").play();
+            //new Audio("../../media/sound/coin.mp3").play();
+            $.mbAudio.play('effectSprite', 'coin');
             c.vx = 0;
             c.vy = -1;
             c.points += 1;
@@ -208,8 +233,8 @@ let statStream = coinStream
         return s;
     });
 
-new Audio("../../media/music/coldwet.mp3").play();
-
-Rx.Observable
-    .zipArray(groundStream, haterStream, pinkieStream, coinStream, statStream)
-    .subscribe(renderScene);
+function startGame() {
+    Rx.Observable
+        .zipArray(groundStream, haterStream, pinkieStream, coinStream, statStream)
+        .subscribe(renderScene);
+};

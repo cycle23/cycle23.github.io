@@ -6,35 +6,32 @@
     <title>Reactive Donkey</title>
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" type="text/css" href="css/game.css">
-    <script src="bower_components/rxjs/dist/rx.all.js"></script>
-    <script src="bower_components/react/react.js"></script>
-    <script src="bower_components/mousetrap/mousetrap.js"></script>
-    <script src="bower_components/rxjs-dom/dist/rx.dom.js"></script>
+    <script type="text/javascript" src="bower_components/rxjs/dist/rx.all.js"></script>
+    <script type="text/javascript" src="bower_components/react/react.js"></script>
+    <script type="text/javascript" src="bower_components/mousetrap/mousetrap.js"></script>
+    <script type="text/javascript" src="bower_components/rxjs-dom/dist/rx.dom.js"></script>
+    <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="jquery.mb.audio.js"></script>
 
   </head>
   <body>
     <div id="canvas">
+      <div id="start">
+        <button style="cursor:pointer" onmousedown="$(document).trigger('initAudio'); ">Donkey Time</button>
+      </div>
+      <div id="loading" style="display: none;">... loading ...</div>
     </div>
-    <script type="text/javascript">
-      (function() {
-        function resizeCanvas() {
-          var canvas = document.getElementById("canvas");
-          var scale = window.innerHeight / canvas.clientHeight;
-          canvas.style.mozTransform = "scale(" + scale + ")";
-          canvas.style.webkitTransform = "scale(" + scale + ")";
-          canvas.style.transform = "scale(" + scale + ")";
-          canvas.style.width = (window.innerWidth / scale) + "px";
-        }
-        resizeCanvas();
-        window.addEventListener("resize", resizeCanvas);
-      })();
-    </script>
-    <!--
 
-    <script type="application/javascript;version=1.7"
-            src="donkey.js"></script>
-     -->
+    <script type="application/javascript"
+            src="donkey.audio.js"></script>
     <script type="application/javascript"
             src="donkey.min.js"></script>
+    <!--
+    <script type="application/javascript;version=1.7"
+            src="donkey.js"></script>
+
+    <script type="application/javascript"
+            src="donkey.audio.min.js"></script>
+     -->
   </body>
 </html>
