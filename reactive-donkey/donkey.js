@@ -7,6 +7,9 @@
  */
 
 const canvas = document.getElementById("canvas");
+if (isAndroid && isChrome) {
+    document.getElementById('android-chrome-note').setAttribute('style','visibility:visible');
+}
 
 (function() {
     function resizeCanvas() {
