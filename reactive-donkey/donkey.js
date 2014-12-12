@@ -93,12 +93,15 @@ function bindKey(key) {
 //   merged events during the interval
 // - but we are only reading the first event,
 //   and only by PinkieStream
+/*
 let tick = Rx.Observable.merge(bindKey("space"),
                                bindKey("up"),
                                Rx.DOM.fromEvent(canvas,"touchstart"))
-.buffer(Rx.Observable.interval(33));
+                               */
+let tick = Rx.DOM.fromEvent(canvas, "touchstart")
+.buffer(Rx.Observable.interval(50));
 
-let groundStream = Rx.Observable.interval(33)
+let groundStream = Rx.Observable.interval(50)
 .map((x) => ({
         id: "ground",
         baseX: 0,
@@ -181,7 +184,6 @@ let pinkieStream = Rx.Observable.zipArray(tick, haterStream).scan({
 
     return p;
 }).takeWhile(onscreen);
-
 
 let initialCoin = {
     id: "coin",
