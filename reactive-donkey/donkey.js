@@ -93,13 +93,10 @@ function bindKey(key) {
 //   merged events during the interval
 // - but we are only reading the first event,
 //   and only by PinkieStream
-/*
+// TODO: don't use merge. I think this triples the events delivered and leads to issues on Chrome on Windows, at least.
 let tick = Rx.Observable.merge(bindKey("space"),
-                               bindKey("up"),
-                               Rx.DOM.fromEvent(canvas,"touchstart"))
-*/
-let tick = Rx.DOM.fromEvent(canvas, "touchstart")
-//let tick = bindKey("space")
+    bindKey("up"),
+    Rx.DOM.fromEvent(canvas,"touchstart"))
 .buffer(Rx.Observable.interval(33));
 
 let groundStream = Rx.Observable.interval(33)
@@ -122,6 +119,7 @@ let initialHater = {
 //let haterStream = Rx.Observable.zipArray(groundStream, scoreStream).scan(initialHater,
 //    (h, [g,s]) => {
 
+// TODO: COME ON1!!?!?!?!?
 var totalScore = 0;
 
 let haterStream= groundStream.scan(initialHater,

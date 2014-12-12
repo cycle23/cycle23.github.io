@@ -91,7 +91,6 @@ function supportType(audioType) {
 
             if ($.mbAudio.loaded[sID] != 1) {
                 var url = supportType("audio/mpeg") ? soundEl.mp3 : soundEl.ogg;
-                alert("support: " + url);
 
                 $.mbAudio.players[sID] = new Audio(url);
                 $.mbAudio.players[sID].load();
@@ -157,7 +156,6 @@ function supportType(audioType) {
                 clearTimeout(player.timeOut);
 
                 if (!isAndroid && player.seekable.length == 0) {
-                //if (player.seekable.length == 0) {
 
                     //	We are not crazy; this is to start loading audio
                     /*

@@ -10,7 +10,7 @@ $.mbAudio.sounds = {
     effectSprite: {
         id    : "effectSprite",
         ogg   : "https://cycle23.github.io/media/sound/donkeyEffects.ogg",
-        mp3   : "sound/donkeyEffects.mp3",
+        mp3   : "https://cycle23.github.io/media/sound/donkeyEffects.mp3",
         sprite: {
             coin      : {id: "coin", start: 0, end: 1, loop: false},
             jump      : {id: "jump", start: 1, end: 2, loop: false},
