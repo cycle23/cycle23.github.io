@@ -97,11 +97,12 @@ function bindKey(key) {
 let tick = Rx.Observable.merge(bindKey("space"),
                                bindKey("up"),
                                Rx.DOM.fromEvent(canvas,"touchstart"))
-                               */
-let tick = Rx.DOM.fromEvent(canvas, "touchstart")
-.buffer(Rx.Observable.interval(50));
+*/
+//let tick = Rx.DOM.fromEvent(canvas, "touchstart")
+let tick = bindKey("space")
+.buffer(Rx.Observable.interval(33));
 
-let groundStream = Rx.Observable.interval(50)
+let groundStream = Rx.Observable.interval(33)
 .map((x) => ({
         id: "ground",
         baseX: 0,
