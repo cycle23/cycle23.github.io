@@ -155,7 +155,8 @@ function supportType(audioType) {
 
                 clearTimeout(player.timeOut);
 
-                if (!isAndroid && player.seekable.length == 0) {
+//                if (!isAndroid && player.seekable.length == 0) {
+                if (player.seekable.length == 0) {
 
                     //	We are not crazy; this is to start loading audio
                     /*

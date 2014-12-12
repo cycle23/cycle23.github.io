@@ -98,8 +98,8 @@ let tick = Rx.Observable.merge(bindKey("space"),
                                bindKey("up"),
                                Rx.DOM.fromEvent(canvas,"touchstart"))
 */
-//let tick = Rx.DOM.fromEvent(canvas, "touchstart")
-let tick = bindKey("space")
+let tick = Rx.DOM.fromEvent(canvas, "touchstart")
+//let tick = bindKey("space")
 .buffer(Rx.Observable.interval(33));
 
 let groundStream = Rx.Observable.interval(33)
