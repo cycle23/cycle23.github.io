@@ -43,14 +43,14 @@ function testWebAudioAPI() {
     var lineOut = new WebAudiox.LineOut(context);
 
     // load a sound and play it immediately
-    WebAudiox.loadBuffer(context, 'sound/donkeyEffects.mp3', function (buffer) {
+    WebAudiox.loadBuffer(context, 'sound/donkeyEffects.ogg', function (buffer) {
         // init AudioBufferSourceNode
         var source = context.createBufferSource();
         source.buffer = buffer;
         source.connect(lineOut.destination);
 
         // start the sound now
-        source.start(1);
+        source.start(0);
     });
 }
 
