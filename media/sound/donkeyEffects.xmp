@@ -8,10 +8,10 @@
             xmlns:stRef="http://ns.adobe.com/xap/1.0/sType/ResourceRef#"
             xmlns:dc="http://purl.org/dc/elements/1.1/"
             xmlns:xmpDM="http://ns.adobe.com/xmp/1.0/DynamicMedia/">
-         <xmp:MetadataDate>2014-12-12T20:50:11-08:00</xmp:MetadataDate>
-         <xmp:ModifyDate>2014-12-12T20:50:11-08:00</xmp:ModifyDate>
-         <xmpMM:InstanceID>xmp.iid:7c9040fc-0014-db46-a56a-b6206b6f5a71</xmpMM:InstanceID>
-         <xmpMM:DocumentID>xmp.did:7c9040fc-0014-db46-a56a-b6206b6f5a71</xmpMM:DocumentID>
+         <xmp:MetadataDate>2014-12-12T20:57:38-08:00</xmp:MetadataDate>
+         <xmp:ModifyDate>2014-12-12T20:39:58-08:00</xmp:ModifyDate>
+         <xmpMM:InstanceID>xmp.iid:a8703b4d-b0f3-534f-994f-b275a6be9b0a</xmpMM:InstanceID>
+         <xmpMM:DocumentID>xmp.did:a5f55ac9-4547-7d4e-9117-6523d3d6692a</xmpMM:DocumentID>
          <xmpMM:OriginalDocumentID>xmp.did:835597bf-0cb0-f94b-80eb-0256c415959f</xmpMM:OriginalDocumentID>
          <xmpMM:History>
             <rdf:Seq>
@@ -150,23 +150,23 @@
                </rdf:li>
                <rdf:li rdf:parseType="Resource">
                   <stEvt:action>saved</stEvt:action>
-                  <stEvt:instanceID>xmp.iid:ea3926a9-b8a5-8448-ad0f-5c684a5bef43</stEvt:instanceID>
-                  <stEvt:when>2014-12-12T20:50:11-08:00</stEvt:when>
+                  <stEvt:instanceID>xmp.iid:3cf30d14-ce72-0e49-897b-408e7e8621d3</stEvt:instanceID>
+                  <stEvt:when>2014-12-12T20:57:38-08:00</stEvt:when>
                   <stEvt:softwareAgent>Adobe Audition CC 2014.1 (Windows)</stEvt:softwareAgent>
                   <stEvt:changed>/metadata</stEvt:changed>
                </rdf:li>
                <rdf:li rdf:parseType="Resource">
                   <stEvt:action>saved</stEvt:action>
-                  <stEvt:instanceID>xmp.iid:7c9040fc-0014-db46-a56a-b6206b6f5a71</stEvt:instanceID>
-                  <stEvt:when>2014-12-12T20:50:11-08:00</stEvt:when>
+                  <stEvt:instanceID>xmp.iid:a8703b4d-b0f3-534f-994f-b275a6be9b0a</stEvt:instanceID>
+                  <stEvt:when>2014-12-12T20:57:38-08:00</stEvt:when>
                   <stEvt:softwareAgent>Adobe Audition CC 2014.1 (Windows)</stEvt:softwareAgent>
-                  <stEvt:changed>/</stEvt:changed>
+                  <stEvt:changed>/metadata</stEvt:changed>
                </rdf:li>
             </rdf:Seq>
          </xmpMM:History>
          <xmpMM:DerivedFrom rdf:parseType="Resource">
-            <stRef:instanceID>xmp.iid:ea3926a9-b8a5-8448-ad0f-5c684a5bef43</stRef:instanceID>
-            <stRef:documentID>xmp.did:a5f55ac9-4547-7d4e-9117-6523d3d6692a</stRef:documentID>
+            <stRef:instanceID>xmp.iid:9b6691df-4e52-6143-975a-d36c18360e0a</stRef:instanceID>
+            <stRef:documentID>xmp.did:9b6691df-4e52-6143-975a-d36c18360e0a</stRef:documentID>
             <stRef:originalDocumentID>xmp.did:835597bf-0cb0-f94b-80eb-0256c415959f</stRef:originalDocumentID>
          </xmpMM:DerivedFrom>
          <dc:format>audio/ogg; codec="vorbis"</dc:format>
