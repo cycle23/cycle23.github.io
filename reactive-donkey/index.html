@@ -11,6 +11,7 @@
     <script type="text/javascript" src="bower_components/mousetrap/mousetrap.js"></script>
     <script type="text/javascript" src="bower_components/rxjs-dom/dist/rx.dom.js"></script>
     <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="bower_components/webaudiox/build/webaudiox.js"></script>
     <script src="jquery.mb.audio.js"></script>
 
   </head>
@@ -22,6 +23,24 @@
       </div>
       <div id="loading" style="display: none;">... loading ...</div>
     </div>
+    <script>
+      // create WebAudio API context
+      var context = new AudioContext();
+
+      // Create lineOut
+      var lineOut = new WebAudiox.LineOut(context);
+
+      // load a sound and play it immediately
+      WebAudiox.loadBuffer(context, 'sound/donkeyEffects.mp3', function(buffer){
+        // init AudioBufferSourceNode
+        var source  = context.createBufferSource();
+        source.buffer   = buffer;
+        source.connect(lineOut.destination);
+
+        // start the sound now
+        source.start(0);
+      });
+    </script>
 
     <script type="application/javascript"
             src="donkey.audio.js"></script>
