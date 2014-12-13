@@ -41,7 +41,7 @@ String.prototype.asId = function () {
 function supportType(audioType) {
     var myAudio = document.createElement('audio');
     var isSupp = myAudio.canPlayType &&  myAudio.canPlayType(audioType);
-    if (isSupp == "") {
+    if (isSupp === "") {
         isSupp = false;
     } else {
         isSupp = true;
@@ -86,10 +86,10 @@ function supportType(audioType) {
 
             }
 
-            var soundEl = typeof sound == "string" ? $.mbAudio.sounds[sound] : sound;
-            var sID = soundEl.id ? soundEl.id : (typeof sound == "string" ? sound : sound.mp3.split(".")[0].asId());
+            var soundEl = typeof sound === "string" ? $.mbAudio.sounds[sound] : sound;
+            var sID = soundEl.id ? soundEl.id : (typeof sound === "string" ? sound : sound.mp3.split(".")[0].asId());
 
-            if ($.mbAudio.loaded[sID] != 1) {
+            if ($.mbAudio.loaded[sID] !== 1) {
                 var url = supportType("audio/mpeg") ? soundEl.mp3 : soundEl.ogg;
 
                 $.mbAudio.players[sID] = new Audio(url);
@@ -102,9 +102,9 @@ function supportType(audioType) {
 
         getPlayer: function (ID) {
             var el = document.getElementById("mbAudio_" + ID);
-            if ($(el).length == 0 || !$.mbAudio.players[ID]) {
-                var soundEl = typeof ID == "string" ? $.mbAudio.sounds[ID] : ID;
-                var sID = soundEl.id ? soundEl.id : (typeof sound == "string" ? sound : sound.mp3.split(".")[0].asId());
+            if ($(el).length === 0 || !$.mbAudio.players[ID]) {
+                var soundEl = typeof ID === "string" ? $.mbAudio.sounds[ID] : ID;
+                var sID = soundEl.id ? soundEl.id : (typeof sound === "string" ? sound : sound.mp3.split(".")[0].asId());
                 ID = sID;
             }
 
@@ -121,14 +121,14 @@ function supportType(audioType) {
 
         play: function (sound, sprite, callback) {
 
-            var soundEl = typeof sound == "string" ? $.mbAudio.sounds[sound] : sound;
+            var soundEl = typeof sound === "string" ? $.mbAudio.sounds[sound] : sound;
 
             if (!soundEl)
                 return;
 
-            var sID = soundEl.id ? soundEl.id : (typeof sound == "string" ? sound : sound.mp3.split(".")[0].asId());
+            var sID = soundEl.id ? soundEl.id : (typeof sound === "string" ? sound : sound.mp3.split(".")[0].asId());
             var loop = soundEl.loop ? soundEl.loop : $.mbAudio.defaults.loop;
-            var volume = typeof soundEl.volume == "number" ? soundEl.volume : $.mbAudio.defaults.volume;
+            var volume = typeof soundEl.volume === "number" ? soundEl.volume : $.mbAudio.defaults.volume;
             volume = volume > 10 ? 10 : volume;
 
             //if ($.mbAudio.loaded[sID] != 1)
@@ -144,18 +144,18 @@ function supportType(audioType) {
 
             $(player).off("ended." + sID + ",paused." + sID);
 
-            if (typeof sprite == "undefined")
+            if (typeof sprite === "undefined")
                 sprite = true;
 
             /*Manage sprite*/
 
-            if (sprite && (typeof sprite == "string" || typeof sprite == "object")) {
+            if (sprite && (typeof sprite === "string" || typeof sprite === "object")) {
 
-                sprite = typeof sprite == "string" ? soundEl.sprite[sprite] : sprite;
+                sprite = typeof sprite === "string" ? soundEl.sprite[sprite] : sprite;
 
                 clearTimeout(player.timeOut);
 
-                if (!isAndroid && player.seekable.length == 0) {
+                if (!isAndroid && player.seekable.length === 0) {
 
                     //	We are not crazy; this is to start loading audio
                     /*
@@ -184,8 +184,8 @@ function supportType(audioType) {
                 $(player).one("ended." + sID + ",paused." + sID, function () {
                     this.currentTime = 0;
 
-                    if (typeof loop == "number") {
-                        if (typeof player.counter == "undefined")
+                    if (typeof loop === "number") {
+                        if (typeof player.counter === "undefined")
                             player.counter = 0;
 
                         player.counter++;
@@ -194,7 +194,7 @@ function supportType(audioType) {
                             delete player.counter;
                             $.mbAudio.playing.splice(sID, 1);
                             delete player.isPlaying;
-                            if (typeof callback == "function")
+                            if (typeof callback === "function")
                                 callback(player);
                             return;
                         }
@@ -210,7 +210,7 @@ function supportType(audioType) {
                     $.mbAudio.playing.splice(sID, 1);
                     delete player.isPlaying;
 
-                    if (typeof callback == "function")
+                    if (typeof callback === "function")
                         callback(player);
 
                 });
@@ -235,7 +235,8 @@ function supportType(audioType) {
             function checkStart(player, sID, sound, sprite, callback){
                 player.currentTime = sprite.start;
 
-                if (Math.round(player.currentTime) != Math.round(sprite.start)){
+//                if (Math.round(player.currentTime) != Math.round(sprite.start)){
+                if (player.currentTime !== sprite.start){
                     checkStart(player, sID, sound, sprite, callback);
                 }else{
                     playerPlay(player, sID, sound, sprite, callback);
@@ -252,10 +253,10 @@ function supportType(audioType) {
                 player.timeOut = setTimeout(function () {
                     if (sprite.loop) {
                         canFireCallback = false;
-                        sprite.loop = sprite.loop == true ? 9999 : sprite.loop;
+                        sprite.loop = sprite.loop === true ? 9999 : sprite.loop;
                         if (!player.counter)
                             player.counter = 1;
-                        if (player.counter != sprite.loop && player.isPlaying) {
+                        if (player.counter !== sprite.loop && player.isPlaying) {
                             player.counter++;
                             player.currentTime = sprite.start || 0;
                             $.mbAudio.play(sound, sprite, callback);
@@ -269,7 +270,7 @@ function supportType(audioType) {
                         player.pause();
                         delete player.isPlaying;
                     }
-                    if (canFireCallback && typeof callback == "function")
+                    if (canFireCallback && typeof callback === "function")
                         callback(player);
                     var idx = jQuery.inArray(sID, $.mbAudio.playing);
                     $.mbAudio.playing.splice(idx, 1);
@@ -284,16 +285,16 @@ function supportType(audioType) {
             if (!sound)
                 return;
 
-            var soundEl = typeof sound == "string" ? $.mbAudio.sounds[sound] : sound;
+            var soundEl = typeof sound === "string" ? $.mbAudio.sounds[sound] : sound;
 
             if (!soundEl)
                 return;
 
-            var sID = soundEl.id ? soundEl.id : (typeof sound == "string" ? sound : sound.mp3.split(".")[0].asId());
+            var sID = soundEl.id ? soundEl.id : (typeof sound === "string" ? sound : sound.mp3.split(".")[0].asId());
 
             var player = $.mbAudio.getPlayer(sID);
 
-            if ($.mbAudio.loaded[sID] != 1)
+            if ($.mbAudio.loaded[sID] !== 1)
                 $.mbAudio.build(sound);
 
             player.pause();
@@ -302,7 +303,7 @@ function supportType(audioType) {
 
             $(player).off('ended.' + sID);
 
-            if (typeof callback == "function")
+            if (typeof callback === "function")
                 callback(player);
 
             var idx = jQuery.inArray(sID, $.mbAudio.playing);
@@ -313,10 +314,10 @@ function supportType(audioType) {
         },
 
         pause: function (sound, callback) {
-            var soundEl = typeof sound == "string" ? $.mbAudio.sounds[sound] : sound;
-            var sID = soundEl.id ? soundEl.id : (typeof sound == "string" ? sound : sound.mp3.split(".")[0].asId());
+            var soundEl = typeof sound === "string" ? $.mbAudio.sounds[sound] : sound;
+            var sID = soundEl.id ? soundEl.id : (typeof sound === "string" ? sound : sound.mp3.split(".")[0].asId());
 
-            if ($.mbAudio.loaded[sID] != 1) {
+            if ($.mbAudio.loaded[sID] !== 1) {
                 $.mbAudio.build(sound);
             }
 
@@ -334,14 +335,14 @@ function supportType(audioType) {
 
             clearTimeout(player.timeOut);
 
-            if (typeof callback == "function")
+            if (typeof callback === "function")
                 callback();
 
         },
 
         destroy: function (sound) {
-            var soundEl = typeof sound == "string" ? $.mbAudio.sounds[sound] : sound;
-            var sID = soundEl.id ? soundEl.id : (typeof sound == "string" ? sound : sound.mp3.split(".")[0].asId());
+            var soundEl = typeof sound === "string" ? $.mbAudio.sounds[sound] : sound;
+            var sID = soundEl.id ? soundEl.id : (typeof sound === "string" ? sound : sound.mp3.split(".")[0].asId());
             $.mbAudio.loaded[sID] = 0;
             var idx = jQuery.inArray(sID, $.mbAudio.playing);
             $.mbAudio.playing.splice(idx, 1);
@@ -393,10 +394,10 @@ function supportType(audioType) {
         },
 
         setVolume: function (sound, vol) {
-            var soundEl = typeof sound == "string" ? $.mbAudio.sounds[sound] : sound;
-            var sID = soundEl.id ? soundEl.id : (typeof sound == "string" ? sound : sound.mp3.split(".")[0].asId());
+            var soundEl = typeof sound === "string" ? $.mbAudio.sounds[sound] : sound;
+            var sID = soundEl.id ? soundEl.id : (typeof sound === "string" ? sound : sound.mp3.split(".")[0].asId());
 
-            if ($.mbAudio.loaded[sID] != 1)
+            if ($.mbAudio.loaded[sID] !== 1)
                 $.mbAudio.build(sound);
 
             var player = $.mbAudio.getPlayer(sID);
@@ -414,14 +415,14 @@ function supportType(audioType) {
 
             duration = duration / 4;
 
-            var soundEl = typeof sound == "string" ? $.mbAudio.sounds[sound] : sound;
-            var sID = soundEl.id ? soundEl.id : (typeof sound == "string" ? sound : sound.mp3.split(".")[0].asId());
+            var soundEl = typeof sound === "string" ? $.mbAudio.sounds[sound] : sound;
+            var sID = soundEl.id ? soundEl.id : (typeof sound === "string" ? sound : sound.mp3.split(".")[0].asId());
 
-            if ($.mbAudio.loaded[sID] != 1)
+            if ($.mbAudio.loaded[sID] !== 1)
                 $.mbAudio.build(sound);
 
             var player = $.mbAudio.getPlayer(sID);
-            var volume = typeof soundEl.volume == "number" ? soundEl.volume : $.mbAudio.defaults.volume;
+            var volume = typeof soundEl.volume === "number" ? soundEl.volume : $.mbAudio.defaults.volume;
             volume = volume > 10 ? 10 : volume;
 
             var step = (volume / 10) / duration;
@@ -440,7 +441,7 @@ function supportType(audioType) {
 
                     if (v >= volume / 10) {
                         clearInterval(player.fade);
-                        if (typeof (callback) == "function")
+                        if (typeof (callback) === "function")
                             callback(player);
                         return;
                     }
@@ -463,14 +464,14 @@ function supportType(audioType) {
 
             duration = duration / 4;
 
-            var soundEl = typeof sound == "string" ? $.mbAudio.sounds[sound] : sound;
-            var sID = soundEl.id ? soundEl.id : (typeof sound == "string" ? sound : sound.mp3.split(".")[0].asId());
+            var soundEl = typeof sound === "string" ? $.mbAudio.sounds[sound] : sound;
+            var sID = soundEl.id ? soundEl.id : (typeof sound === "string" ? sound : sound.mp3.split(".")[0].asId());
 
-            if ($.mbAudio.loaded[sID] != 1)
+            if ($.mbAudio.loaded[sID] !== 1)
                 $.mbAudio.build(sound);
 
             var player = $.mbAudio.getPlayer(sID);
-            var volume = player.volume ? player.volume * 10 : (typeof soundEl.volume == "number" ? soundEl.volume : $.mbAudio.defaults.volume);
+            var volume = player.volume ? player.volume * 10 : (typeof soundEl.volume === "number" ? soundEl.volume : $.mbAudio.defaults.volume);
             volume = volume > 10 ? 10 : volume;
 
             var step = (volume / 10) / duration;
@@ -495,7 +496,7 @@ function supportType(audioType) {
 
                     player.pause();
 
-                    if (typeof (callback) == "function")
+                    if (typeof (callback) === "function")
                         callback(player);
 
                     return;
@@ -512,19 +513,19 @@ function supportType(audioType) {
 
             add: function (soundID, sprite, callback, hasPriority) {
 
-                var channelName = typeof soundID == "string" ? soundID : soundID.mp3.split(".")[0].asId();
+                var channelName = typeof soundID === "string" ? soundID : soundID.mp3.split(".")[0].asId();
                 var c = $.mbAudio.queue.get(channelName);
-                if (c == null)
+                if (c === null)
                     c = new Channel(soundID);
 
-                var soundEl = typeof soundID == "string" ? $.mbAudio.sounds[soundID] : soundID;
+                var soundEl = typeof soundID === "string" ? $.mbAudio.sounds[soundID] : soundID;
 
                 if (!soundEl.started) {
                     $.mbAudio.pause(soundID);
                     soundEl.started = true;
                 }
 
-                sprite = typeof sprite == "string" ? soundEl.sprite[sprite] : sprite;
+                sprite = typeof sprite === "string" ? soundEl.sprite[sprite] : sprite;
 
                 var sEL = {};
 
@@ -550,7 +551,7 @@ function supportType(audioType) {
 
             get: function (name) {
                 for (var i in $.mbAudio.ch) {
-                    if ($.mbAudio.ch[i].name == name)
+                    if ($.mbAudio.ch[i].name === name)
                         return $.mbAudio.ch[i];
                 }
             },
@@ -559,11 +560,11 @@ function supportType(audioType) {
 
                 function manageQueue(channel) {
 
-                    if (channel.soundInPlay == null && channel.playingSounds && channel.playingSounds.length > 0 && !$.mbAudio.soundsMutedByHand && !channel.isMuted) {
+                    if (channel.soundInPlay === null && channel.playingSounds && channel.playingSounds.length > 0 && !$.mbAudio.soundsMutedByHand && !channel.isMuted) {
                         channel.soundInPlay = channel.playingSounds[0];
 
                         function callback() {
-                            if (typeof channel.soundInPlay.callback == "function")
+                            if (typeof channel.soundInPlay.callback === "function")
                                 channel.soundInPlay.callback();
 
                             channel.playingSounds.splice(0, 1);
@@ -574,7 +575,7 @@ function supportType(audioType) {
 
                         $.mbAudio.play(channel.soundInPlay.soundID, channel.soundInPlay.sprite, callback);
 
-                    } else if (channel.soundInPlay != null && channel.soundInPlay.soundID && ($.mbAudio.soundsMutedByHand || channel.isMuted)) {
+                    } else if (channel.soundInPlay !== null && channel.soundInPlay.soundID && ($.mbAudio.soundsMutedByHand || channel.isMuted)) {
                         $.mbAudio.pause(channel.soundInPlay.soundID);
                         channel.playingSounds = [];
                         channel.playingSounds.unshift(channel.soundInPlay);
@@ -615,7 +616,7 @@ function supportType(audioType) {
             clear: function (name) {
                 var channel = $.mbAudio.queue.get(name);
                 if (channel) {
-                    if (channel.soundInPlay != null)
+                    if (channel.soundInPlay !== null)
                         $.mbAudio.pause(channel.soundInPlay.soundID);
                     channel.soundInPlay = null;
                     channel.playingSounds = [];
@@ -635,7 +636,7 @@ function supportType(audioType) {
     };
 
     function Channel(soundID) {
-        this.name = typeof soundID == "string" ? soundID : soundID.mp3.split(".")[0].asId();
+        this.name = typeof soundID === "string" ? soundID : soundID.mp3.split(".")[0].asId();
         this.soundInPlay = null;
         this.playingSounds = [];
         this.isMuted = false;
