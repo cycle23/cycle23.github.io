@@ -25,8 +25,12 @@ function audioIsReady() {
         if(isStandAlone || !isDevice) {
             $.mbAudio.play('backgroundSprite', 'level1');
         }
+        $.mbAudio.play('effectSprite', 'jump');
+        $.mbAudio.play('effectSprite', 'jump');
+        $.mbAudio.play('effectSprite', 'jump');
+        alert("ready to start");
         startGame();
-    }, 5000);
+    }, 1000);
 }
 
 $(document).on("initAudio", function () {
@@ -52,9 +56,6 @@ function testWebAudioAPI() {
         // start the sound now
         source.start(0);
     });
-    $.mbAudio.play('effectSprite', 'jump');
-    $.mbAudio.play('effectSprite', 'jump');
-    $.mbAudio.play('effectSprite', 'jump');
 }
 
-testWebAudioAPI();
+//testWebAudioAPI();
