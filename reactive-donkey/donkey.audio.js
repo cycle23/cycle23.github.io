@@ -12,9 +12,9 @@ $.mbAudio.sounds = {
         ogg   : "https://cycle23.github.io/media/sound/donkeyEffects.ogg",
         mp3   : "https://cycle23.github.io/media/sound/donkeyEffects.mp3",
         sprite: {
-            coin      : {id: "coin", start: 0, end: 1, loop: false},
-            jump      : {id: "jump", start: 1, end: 2, loop: false},
-            gameover  : {id: "gameover", start: 2, end: 8, loop: false}
+            coin      : {id: "coin", start: 5, end: 6, loop: false},
+            jump      : {id: "jump", start: 10.5, end: 11.5, loop: false},
+            gameover  : {id: "gameover", start: 16, end: 22, loop: false}
         }
     }
 };
