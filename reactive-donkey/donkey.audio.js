@@ -53,3 +53,5 @@ function testWebAudioAPI() {
         source.start(0);
     });
 }
+
+testWebAudioAPI();
