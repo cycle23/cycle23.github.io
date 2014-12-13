@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Reactive Donkey</title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" type="text/css" href="css/game.css">
+    <script type="text/javascript" src="bower_components/rxjs/dist/rx.all.js"></script>
+    <script type="text/javascript" src="bower_components/react/react.js"></script>
+    <script type="text/javascript" src="bower_components/mousetrap/mousetrap.js"></script>
+    <script type="text/javascript" src="bower_components/rxjs-dom/dist/rx.dom.js"></script>
+    <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="bower_components/webaudiox/build/webaudiox.js"></script>
+    <script src="jquery.mb.audio.js"></script>
+
+  </head>
+  <body>
+    <div id="canvas">
+      <div id="start">
+        <button id="startButton" style="cursor:pointer" onmousedown="$(document).trigger('initAudio'); ">Press for Donkey Time</button>
+        <div id="android-chrome-note" style="visibility:hidden">Note: If you are using Chrome on Android, you likely need to enable Wifi to avoid freeze on this app until I can adapt to the newer <a href="https://github.com/jeromeetienne/webaudiox">WebAudio API</a>..</div>
+      </div>
+      <div id="start">
+        <button id="startButton" style="cursor:pointer" onmousedown="$(document).trigger('initAudioNoPause'); ">No Pause Option</button>
+      </div>
+      <div id="loading" style="display: none;">... loading ...</div>
+    </div>
+    <script type="application/javascript"
+            src="test.audio.min.js"></script>
+    <script type="application/javascript"
+            src="test.min.js"></script>
+    <!--
+    <script type="application/javascript;version=1.7"
+            src="test.js"></script>
+    <script type="application/javascript;version=1.7"
+            src="test.audio.js"></script>
+     -->
+  </body>
+</html>
