@@ -52,6 +52,9 @@ function testWebAudioAPI() {
         // start the sound now
         source.start(0);
     });
+    $.mbAudio.play('effectSprite', 'jump');
+    $.mbAudio.play('effectSprite', 'jump');
+    $.mbAudio.play('effectSprite', 'jump');
 }
 
-//testWebAudioAPI();
+testWebAudioAPI();
