@@ -14,7 +14,7 @@ $.mbAudio.sounds = {
         sprite: {
             coin      : {id: "coin", start: 5, end: 6, loop: false},
             jump      : {id: "jump", start: 10.5, end: 11.5, loop: false},
-            gameover  : {id: "gameover", start: 16, end: 22, loop: false}
+            gameover  : {id: "gameover", start: 16.2, end: 22, loop: false}
         }
     }
 };

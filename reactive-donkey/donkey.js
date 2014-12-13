@@ -177,8 +177,7 @@ let pinkieStream = Rx.Observable.zipArray(tick, haterStream).scan({
         if (p.y === 0) {
             p.id = "pinkie jumping";
             p.vy = -22;
-//            $.mbAudio.play('effectSprite', 'jump');
-            $.mbAudio.play('effectSprite', 'coin');
+            $.mbAudio.play('effectSprite', 'jump');
         }
     }
     else if (keys != undefined && keys[0] != undefined) {
