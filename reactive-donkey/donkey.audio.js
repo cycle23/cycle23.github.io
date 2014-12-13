@@ -50,6 +50,6 @@ function testWebAudioAPI() {
         source.connect(lineOut.destination);
 
         // start the sound now
-        source.start(1);
+        source.start(0);
     });
 }
