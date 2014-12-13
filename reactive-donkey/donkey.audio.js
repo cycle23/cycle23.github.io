@@ -12,8 +12,8 @@ $.mbAudio.sounds = {
         ogg   : "https://cycle23.github.io/media/sound/donkeyEffects.ogg",
         mp3   : "https://cycle23.github.io/media/sound/donkeyEffects.mp3",
         sprite: {
-            coin      : {id: "coin", start: 1, end: 2, loop: false},
-            jump      : {id: "jump", start: 1, end: 2, loop: false},
+            coin      : {id: "coin", start: 0, end: 0.9, loop: false},
+            jump      : {id: "jump", start: 1, end: 1.9, loop: false},
             gameover  : {id: "gameover", start: 2, end: 8, loop: false}
         }
     }
@@ -50,6 +50,6 @@ function testWebAudioAPI() {
         source.connect(lineOut.destination);
 
         // start the sound now
-        source.start(0);
+        source.start(1);
     });
 }

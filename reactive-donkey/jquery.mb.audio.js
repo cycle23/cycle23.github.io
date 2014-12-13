@@ -488,7 +488,7 @@ function supportType(audioType) {
                     v = 0;
                     clearInterval(player.fade);
 
-                    player.volume = 0
+                    player.volume = 0;
                     player.isPlaying = false;
                     var idx = jQuery.inArray(sID, $.mbAudio.playing);
                     $.mbAudio.playing.splice(idx, 1);
