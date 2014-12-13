@@ -43,7 +43,7 @@ function testWebAudioAPI() {
     var lineOut = new WebAudiox.LineOut(context);
 
     // load a sound and play it immediately
-    WebAudiox.loadBuffer(context, 'sound/donkeyEffects.ogg', function (buffer) {
+    WebAudiox.loadBuffer(context, 'https://cycle23.github.io/media/sound/donkeyEffects.ogg', function (buffer) {
         // init AudioBufferSourceNode
         var source = context.createBufferSource();
         source.buffer = buffer;
