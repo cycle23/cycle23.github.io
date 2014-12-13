@@ -12,25 +12,19 @@ $.mbAudio.sounds = {
         ogg   : "https://cycle23.github.io/media/sound/donkeyEffects.ogg",
         mp3   : "https://cycle23.github.io/media/sound/donkeyEffects.mp3",
         sprite: {
-            coin      : {id: "coin", start: 5, end: 6, loop: false},
-            jump      : {id: "jump", start: 10.5, end: 11.5, loop: false},
-            gameover  : {id: "gameover", start: 16.2, end: 22, loop: false}
+            coin      : {id: "coin", start: 4.45, end: 6.5, loop: false},
+            jump      : {id: "jump", start: 10.5, end: 12, loop: false},
+            gameover  : {id: "gameover", start: 15.5, end: 22, loop: false}
         }
     }
 };
 
 function audioIsReady() {
-    setTimeout(function () {
-        $("#loading").hide();
-        if(isStandAlone || !isDevice) {
-            $.mbAudio.play('backgroundSprite', 'level1');
-        }
-        $.mbAudio.play('effectSprite', 'jump');
-        $.mbAudio.play('effectSprite', 'jump');
-        $.mbAudio.play('effectSprite', 'jump');
-        alert("ready to start");
-        startGame();
-    }, 1000);
+    $("#loading").hide();
+    if(isStandAlone || !isDevice) {
+        $.mbAudio.play('backgroundSprite', 'level1');
+    }
+    startGame();
 }
 
 $(document).on("initAudio", function () {
