@@ -197,7 +197,7 @@ let pinkieStream = tick.scan({
             p.id = "pinkie jumping";
             p.vy = -22;
             let thisTouch = "";
-            if (keys[0].touches[0] !== undefined) {
+            if (keys[0].touches !== undefined && keys[0].touches[0] !== undefined) {
                 alert("touch");
                 thisTouch = keys[0].touches[0].target.id;
                 //alert(thisTouch.identifier + ":" + thisTouch.target.id + ":" + thisTouch.pageY + ":" + thisTouch.pageX+ ":" + thisTouch.screenY + ":" + thisTouch.screenX + ":" + thisTouch.clientY + ":" + thisTouch.clientX);
