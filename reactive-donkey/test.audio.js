@@ -77,7 +77,7 @@ function testWebAudioAPI2() {
     var lineOut = new WebAudiox.LineOut(context);
 
     // load a sound and play it immediately
-    WebAudiox.loadBuffer(context, 'https://cycle23.github.io/media/sound/jump2.mp3', function (buffer) {
+    WebAudiox.loadBuffer(context, 'http://cycle23.github.io/media/sound/jump2.mp3', function (buffer) {
         // init AudioBufferSourceNode
         var source = context.createBufferSource();
         source.buffer = buffer;
