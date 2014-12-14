@@ -1,16 +1,16 @@
 $.mbAudio.sounds = {
     backgroundSprite: {
         id    : "backgroundSprite",
-        ogg   : "https://cycle23.github.io/media/music/coldwet.ogg",
-        mp3   : "https://cycle23.github.io/media/music/coldwet.mp3",
+        ogg   : "http://cycle23.github.io/media/music/coldwet.ogg",
+        mp3   : "http://cycle23.github.io/media/music/coldwet.mp3",
         sprite: {
             level1    : {id: "level1", start: 0, end: 232, loop: true}
         }
     },
     effectSprite: {
         id    : "effectSprite",
-        ogg   : "https://cycle23.github.io/media/sound/donkeyEffects.ogg",
-        mp3   : "https://cycle23.github.io/media/sound/donkeyEffects.mp3",
+        ogg   : "http://cycle23.github.io/media/sound/donkeyEffects.ogg",
+        mp3   : "http://cycle23.github.io/media/sound/donkeyEffects.mp3",
         sprite: {
             coin      : {id: "coin", start: 4.45, end: 6.5, loop: false},
             jump      : {id: "jump", start: 10.5, end: 12, loop: false},
@@ -19,7 +19,7 @@ $.mbAudio.sounds = {
     },
     effectSprite2: {
         id    : "effectSprite2",
-        mp3   : "https://cycle23.github.io/media/sound/donkeyEffects2.aac",
+        mp3   : "http://cycle23.github.io/media/sound/donkeyEffects2.mp3",
         sprite: {
             coin      : {id: "coin", start: 4.45, end: 6.5, loop: false},
             jump      : {id: "jump", start: 10.5, end: 12, loop: false},
@@ -58,7 +58,7 @@ function testWebAudioAPI() {
     var lineOut = new WebAudiox.LineOut(context);
 
     // load a sound and play it immediately
-    WebAudiox.loadBuffer(context, 'https://cycle23.github.io/media/sound/jump.mp3', function (buffer) {
+    WebAudiox.loadBuffer(context, 'http://cycle23.github.io/media/sound/jump.mp3', function (buffer) {
         // init AudioBufferSourceNode
         var source = context.createBufferSource();
         source.buffer = buffer;
