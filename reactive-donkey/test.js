@@ -214,7 +214,7 @@ let pinkieStream = tick.scan({
                 testWebAudioAPI2();
             }
             else if (keys[0] === "right" || thisTouch === "rightButton") {
-                new Audio("http://cycle23.github.io/media/sound/jump.mp3").play();
+                new Audio("../../media/sound/jump.mp3").play();
             }
         }
     }
