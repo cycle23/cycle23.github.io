@@ -16,6 +16,15 @@ $.mbAudio.sounds = {
             jump      : {id: "jump", start: 10.5, end: 12, loop: false},
             gameover  : {id: "gameover", start: 15.5, end: 22, loop: false}
         }
+    },
+    effectSprite2: {
+        id    : "effectSprite2",
+        mp3   : "https://cycle23.github.io/media/sound/donkeyEffects2.mp3",
+        sprite: {
+            coin      : {id: "coin", start: 4.45, end: 6.5, loop: false},
+            jump      : {id: "jump", start: 10.5, end: 12, loop: false},
+            gameover  : {id: "gameover", start: 15.5, end: 22, loop: false}
+        }
     }
 };
 
@@ -30,6 +39,7 @@ function audioIsReady() {
 
 $(document).on("initAudio", function () {
     $.mbAudio.pause('effectSprite', audioIsReady);
+    $.mbAudio.pause('effectSprite2', audioIsReady);
     $('#start').hide();
     $("#loading").show();
 });
