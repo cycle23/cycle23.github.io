@@ -7,6 +7,10 @@
  */
 
 const canvas = document.getElementById("canvas");
+const rightTouch = document.getElementById("rightTouch");
+const leftTouch = document.getElementById("leftTouch");
+const upTouch = document.getElementById("upTouch");
+const downTouch = document.getElementById("downTouch");
 if (isAndroid && isChrome) {
     document.getElementById('android-chrome-note').setAttribute('style','visibility:visible');
 }
@@ -76,6 +80,10 @@ function makeElement(node) {
 }
 
 function renderScene(nodes) {
+    canvas.appendChild(upTouch);
+    canvas.appendChild(downTouch);
+    canvas.appendChild(leftTouch);
+    canvas.appendChild(rightTouch);
     return React.renderComponent(
         React.DOM.div(null, nodes.map(makeElement)),
         canvas
@@ -102,8 +110,13 @@ let tick = Rx.Observable.merge(bindKey("space"),
     bindKey("right"),
     bindKey("left"),
     bindKey("down"),
-    Rx.DOM.fromEvent(canvas,"touchstart"))
-.buffer(Rx.Observable.interval(33));
+    Rx.DOM.fromEvent(canvas,"touchstart"),
+    Rx.DOM.fromEvent(upTouch,"touchstart"),
+    Rx.DOM.fromEvent(rightTouch,"touchstart"),
+    Rx.DOM.fromEvent(leftTouch,"touchstart"),
+    Rx.DOM.fromEvent(downTouch,"touchstart")
+    )
+    .buffer(Rx.Observable.interval(33));
 
 let groundStream = Rx.Observable.interval(33)
 .map((x) => ({

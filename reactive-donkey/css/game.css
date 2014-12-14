@@ -29,13 +29,51 @@
     vertical-align:center;
 }
 
-#startButton {
+#startButton,#upButton,#rightButton,#leftButton,#downButton {
     border: 1px solid black;
     height: 100px;
     width: 200px;
     margin: 0 auto;
     vertical-align:center;
 }
+
+#upTouch {
+    border: 1px solid black;
+    height: 100px;
+    width: 200px;
+    margin: 0 auto;
+    vertical-align:top;
+}
+
+#downTouch {
+    border: 1px solid black;
+    height: 100px;
+    width: 200px;
+    margin: 0 auto;
+    vertical-align:center;
+}
+
+#leftTouch {
+    border: 1px solid black;
+    height: 100px;
+    width: 200px;
+    margin: 0 auto;
+    vertical-align:top;
+    horiz-align:left;
+    alignment:left;
+}
+
+#rightTouch {
+    border: 1px solid black;
+    height: 100px;
+    width: 200px;
+    margin: 0 auto;
+    vertical-align:top;
+    horiz-align:right;
+    alignment:right;
+}
+
+
 
 .logo {
     position: absolute;
