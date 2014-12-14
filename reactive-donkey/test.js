@@ -116,9 +116,9 @@ let tick = Rx.Observable.merge(bindKey("space"),
     Rx.DOM.fromEvent(rightTouch,"touchstart"),
     Rx.DOM.fromEvent(downTouch,"touchstart")
     )
-    .buffer(Rx.Observable.interval(33));
+    .buffer(Rx.Observable.interval(300));
 
-let groundStream = Rx.Observable.interval(33)
+let groundStream = Rx.Observable.interval(300)
 .map((x) => ({
         id: "ground",
         baseX: 0,
@@ -198,6 +198,7 @@ let pinkieStream = tick.scan({
             p.vy = -22;
             let thisTouch = "";
             if (keys[0].touches[0] !== undefined) {
+                alert("touch");
                 thisTouch = keys[0].touches[0].target.id;
                 //alert(thisTouch.identifier + ":" + thisTouch.target.id + ":" + thisTouch.pageY + ":" + thisTouch.pageX+ ":" + thisTouch.screenY + ":" + thisTouch.screenX + ":" + thisTouch.clientY + ":" + thisTouch.clientX);
             }
@@ -216,7 +217,9 @@ let pinkieStream = tick.scan({
             }
             else*/
             if (keys[0] === "right" || thisTouch === "rightButton") {
-                new Audio("../../media/sound/jump.mp3").play();
+                alert("audio");
+                new Audio("../media/sound/jump.mp3").play();
+                alert("played?");
             }
         }
     }
