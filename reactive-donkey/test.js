@@ -198,8 +198,7 @@ let pinkieStream = tick.scan({
             p.vy = -22;
             if (keys[0].touches[0] !== undefined) {
                 let thisTouch = keys[0].touches[0];
-                alert(thisTouch);
-                alert(thisTouch.x + ":" + thisTouch.y + ":" + thisTouch.className + ":" + thisTouch.id);
+                alert(thistouch.identifier + ":" + thisTouch.target + ":" + thisTouch.pageY + ":" + thisTouch.pageX+ ":" + thisTouch.screenY + ":" + thisTouch.screenX + ":" + thisTouch.clientY + ":" + thishTouch.clientX);
             }
             if (keys[0] === "space") {
                 $.mbAudio.play('effectSprite', 'jump');
