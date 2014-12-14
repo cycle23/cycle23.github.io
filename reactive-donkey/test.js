@@ -99,6 +99,9 @@ function bindKey(key) {
 // TODO: don't use merge. I think this triples the events delivered and leads to issues on Chrome on Windows, at least.
 let tick = Rx.Observable.merge(bindKey("space"),
     bindKey("up"),
+    bindKey("right"),
+    bindKey("left"),
+    bindKey("down"),
     Rx.DOM.fromEvent(canvas,"touchstart"))
 .buffer(Rx.Observable.interval(33));
 
@@ -138,16 +141,18 @@ let haterStream= groundStream.scan(initialHater,
 // velocity will be applied and then gravity adjusted each
 // tick scan
 // the keys are mapped here from tick buffer
-let pinkieStream = Rx.Observable.zipArray(tick, haterStream).scan({
+//let pinkieStream = Rx.Observable.zipArray(tick, haterStream).scan({
+let pinkieStream = tick.scan({
     id: "pinkie",
     baseY: 320,
     x: 0, y: 0,
     vx: 0, vy: 0,
     lives: 3,
     gameOver: false
-}, (p, [keys, hater]) => {
+}, (p, keys) => {
     p = velocity(p);
 
+    /*
     if (intersects(p, hater) && !p.gameOver) {
         // seeing this function hit 3x on Chrome with gameOver not true
         // likely due to the merge before?
@@ -164,6 +169,7 @@ let pinkieStream = Rx.Observable.zipArray(tick, haterStream).scan({
         p.vy += 0.5;
         return p;
     }
+    */
     p.vy += 0.88;
 
     // keep from going under
@@ -173,17 +179,26 @@ let pinkieStream = Rx.Observable.zipArray(tick, haterStream).scan({
         p.vy = 0;
     }
 
-    if (keys[0] === "space" ||
-        keys[0] === "up" ||
-        (keys[0] !== undefined && keys[0].touches[0] !== undefined)) {
+    if (keys[0] !== undefined) {
         if (p.y === 0) {
             p.id = "pinkie jumping";
             p.vy = -22;
-            $.mbAudio.play('effectSprite', 'jump');
+            if (keys[0] === "space") {
+                $.mbAudio.play('effectSprite', 'jump');
+            }
+            else if (keys[0] === "up") {
+                testWebAudioAPI();
+            }
+            else if (keys[0] === "down") {
+                $.mbAudio.play('effectSprite2', 'jump');
+            }
+            else if (keys[0] === "left") {
+                testWebAudioAPI2();
+            }
+            else if (keys[0] === "right") {
+                new Audio("https://cycle23.github.io/media/sound/jump.mp3").play();
+            }
         }
-    }
-    else if (keys !== undefined && keys[0] !== undefined) {
-        alert("keys: " + keys[0]);
     }
 
     return p;

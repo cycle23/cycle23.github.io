@@ -48,7 +48,7 @@ function testWebAudioAPI() {
     var lineOut = new WebAudiox.LineOut(context);
 
     // load a sound and play it immediately
-    WebAudiox.loadBuffer(context, 'https://cycle23.github.io/media/sound/donkeyEffects.mp3', function (buffer) {
+    WebAudiox.loadBuffer(context, 'https://cycle23.github.io/media/sound/jump.mp3', function (buffer) {
         // init AudioBufferSourceNode
         var source = context.createBufferSource();
         source.buffer = buffer;
@@ -58,5 +58,25 @@ function testWebAudioAPI() {
         source.start(0);
     });
 }
+
+function testWebAudioAPI2() {
+    // create WebAudio API context
+    var context = new AudioContext();
+
+    // Create lineOut
+    var lineOut = new WebAudiox.LineOut(context);
+
+    // load a sound and play it immediately
+    WebAudiox.loadBuffer(context, 'https://cycle23.github.io/media/sound/jump2.mp3', function (buffer) {
+        // init AudioBufferSourceNode
+        var source = context.createBufferSource();
+        source.buffer = buffer;
+        source.connect(lineOut.destination);
+
+        // start the sound now
+        source.start(0);
+    });
+}
+
 
 //testWebAudioAPI();
