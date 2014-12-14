@@ -196,6 +196,11 @@ let pinkieStream = tick.scan({
         if (p.y === 0) {
             p.id = "pinkie jumping";
             p.vy = -22;
+            let touch = undefined;
+            if (keys[0].touches[0] !== undefined) {
+                touch = keys[0].touches[0];
+                alert(touch.x + ":" + touch.y + ":" + touch.className + ":" + touch.id);
+            }
             if (keys[0] === "space") {
                 $.mbAudio.play('effectSprite', 'jump');
             }
