@@ -111,9 +111,9 @@ let tick = Rx.Observable.merge(bindKey("space"),
     bindKey("left"),
     bindKey("down"),
     Rx.DOM.fromEvent(canvas,"touchstart"),
+    Rx.DOM.fromEvent(leftTouch,"touchstart"),
     Rx.DOM.fromEvent(upTouch,"touchstart"),
     Rx.DOM.fromEvent(rightTouch,"touchstart"),
-    Rx.DOM.fromEvent(leftTouch,"touchstart"),
     Rx.DOM.fromEvent(downTouch,"touchstart")
     )
     .buffer(Rx.Observable.interval(33));
@@ -198,7 +198,7 @@ let pinkieStream = tick.scan({
             p.vy = -22;
             if (keys[0].touches[0] !== undefined) {
                 let thisTouch = keys[0].touches[0];
-                alert(thistouch.identifier + ":" + thisTouch.target + ":" + thisTouch.pageY + ":" + thisTouch.pageX+ ":" + thisTouch.screenY + ":" + thisTouch.screenX + ":" + thisTouch.clientY + ":" + thishTouch.clientX);
+                alert(thisTouch.identifier + ":" + thisTouch.target + ":" + thisTouch.pageY + ":" + thisTouch.pageX+ ":" + thisTouch.screenY + ":" + thisTouch.screenX + ":" + thisTouch.clientY + ":" + thishTouch.clientX);
             }
             if (keys[0] === "space") {
                 $.mbAudio.play('effectSprite', 'jump');
