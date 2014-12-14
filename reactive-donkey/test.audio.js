@@ -67,7 +67,7 @@ function testWebAudioAPI() {
         // start the sound now
         source.start(0);
     });
-}
+};
 
 function testWebAudioAPI2() {
     // create WebAudio API context
@@ -86,7 +86,7 @@ function testWebAudioAPI2() {
         // start the sound now
         source.start(0);
     });
-}
+};
 
 
 //testWebAudioAPI();
