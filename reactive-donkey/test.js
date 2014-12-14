@@ -201,6 +201,7 @@ let pinkieStream = tick.scan({
                 thisTouch = keys[0].touches[0].target.id;
                 //alert(thisTouch.identifier + ":" + thisTouch.target.id + ":" + thisTouch.pageY + ":" + thisTouch.pageX+ ":" + thisTouch.screenY + ":" + thisTouch.screenX + ":" + thisTouch.clientY + ":" + thisTouch.clientX);
             }
+            /*
             if (keys[0] === "space" || thisTouch === "canvas") {
                 $.mbAudio.play('effectSprite', 'jump');
             }
@@ -213,7 +214,8 @@ let pinkieStream = tick.scan({
             else if (keys[0] === "left" || thisTouch === "leftButton") {
                 testWebAudioAPI2();
             }
-            else if (keys[0] === "right" || thisTouch === "rightButton") {
+            else*/
+            if (keys[0] === "right" || thisTouch === "rightButton") {
                 new Audio("../../media/sound/jump.mp3").play();
             }
         }

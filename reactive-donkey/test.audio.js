@@ -1,3 +1,4 @@
+/*
 $.mbAudio.sounds = {
     backgroundSprite: {
         id    : "backgroundSprite",
@@ -26,7 +27,7 @@ $.mbAudio.sounds = {
             gameover  : {id: "gameover", start: 15.5, end: 22, loop: false}
         }
     }
-};
+};*/
 
 function audioIsReady() {
     $("#loading").hide();
@@ -50,7 +51,7 @@ $(document).on("initAudioNoPause", function () {
     startGame();
 });
 
-
+/*
 function testWebAudioAPI() {
     // create WebAudio API context
     var context = new AudioContext();
@@ -88,6 +89,6 @@ function testWebAudioAPI2() {
         source.start(0);
     });
 };
-
+*/
 
 //testWebAudioAPI();
