@@ -196,23 +196,24 @@ let pinkieStream = tick.scan({
         if (p.y === 0) {
             p.id = "pinkie jumping";
             p.vy = -22;
+            let thisTouch = "";
             if (keys[0].touches[0] !== undefined) {
-                let thisTouch = keys[0].touches[0];
-                alert(thisTouch.identifier + ":" + thisTouch.target.id + ":" + thisTouch.pageY + ":" + thisTouch.pageX+ ":" + thisTouch.screenY + ":" + thisTouch.screenX + ":" + thisTouch.clientY + ":" + thisTouch.clientX);
+                thisTouch = keys[0].touches[0].target.id;
+                //alert(thisTouch.identifier + ":" + thisTouch.target.id + ":" + thisTouch.pageY + ":" + thisTouch.pageX+ ":" + thisTouch.screenY + ":" + thisTouch.screenX + ":" + thisTouch.clientY + ":" + thisTouch.clientX);
             }
-            if (keys[0] === "space") {
+            if (keys[0] === "space" || thisTouch === "canvas") {
                 $.mbAudio.play('effectSprite', 'jump');
             }
-            else if (keys[0] === "up") {
+            else if (keys[0] === "up" || thisTouch === "upButton") {
                 testWebAudioAPI();
             }
-            else if (keys[0] === "down") {
+            else if (keys[0] === "down" || thisTouch === "downButton") {
                 $.mbAudio.play('effectSprite2', 'jump');
             }
-            else if (keys[0] === "left") {
+            else if (keys[0] === "left" || thisTouch === "leftButton") {
                 testWebAudioAPI2();
             }
-            else if (keys[0] === "right") {
+            else if (keys[0] === "right" || thisTouch === "rightButton") {
                 new Audio("https://cycle23.github.io/media/sound/jump.mp3").play();
             }
         }
