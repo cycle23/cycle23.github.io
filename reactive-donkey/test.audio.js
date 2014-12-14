@@ -34,12 +34,13 @@ function audioIsReady() {
         alert("background");
         $.mbAudio.play('backgroundSprite', 'level1');
     }
+
     startGame();
 }
 
 $(document).on("initAudio", function () {
-    $.mbAudio.pause('effectSprite', audioIsReady);
-    $.mbAudio.pause('effectSprite2', audioIsReady);
+    //$.mbAudio.pause('effectSprite', audioIsReady);
+    //$.mbAudio.pause('effectSprite2', audioIsReady);
     $('#start').hide();
     $("#loading").show();
 });
