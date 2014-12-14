@@ -19,7 +19,7 @@ $.mbAudio.sounds = {
     },
     effectSprite2: {
         id    : "effectSprite2",
-        mp3   : "https://cycle23.github.io/media/sound/donkeyEffects2.mp3",
+        mp3   : "https://cycle23.github.io/media/sound/donkeyEffects2.aac",
         sprite: {
             coin      : {id: "coin", start: 4.45, end: 6.5, loop: false},
             jump      : {id: "jump", start: 10.5, end: 12, loop: false},
