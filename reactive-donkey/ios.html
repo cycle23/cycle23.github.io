@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Reactive Donkey</title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" type="text/css" href="css/game.css">
+    <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="bower_components/webaudiox/build/webaudiox.js"></script>
+    <script src="jquery.mb.audio.js"></script>
+
+  </head>
+  <body>
+    <div id="canvas">
+      <div id="play">
+        <button id="playButton">Play</button>
+      </div>
+  </body>
+  <audio id='audio'>
+    // AAC file (Chrome/Safari/IE9)
+    <source src="http://cycle23.github.io/media/sound/jump.m4a" type="audio/mpeg" />
+    // Ogg Vorbis (Firefox)
+    <source src="http://cycle23.github.io/media/sound/jump.ogg" type="audio/ogg" />
+  </audio>
+  <script>
+  window.addEventListener('load', function(){ // on page load
+   
+   document.body.addEventListener('touchstart', function(e){
+    alert(e.changedTouches[0].pageX) // alert pageX coordinate of touch point
+    var audio = document.getElementById('audio');
+    audio.play();
+   }, false)
+   
+  }, false)
+  </script>
+</html>
