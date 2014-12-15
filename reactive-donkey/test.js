@@ -200,7 +200,6 @@ let pinkieStream = tick.scan({
                 //alert(thisTouch.identifier + ":" + thisTouch.target.id + ":" + thisTouch.pageY + ":" + thisTouch.pageX+ ":" + thisTouch.screenY + ":" + thisTouch.screenX + ":" + thisTouch.clientY + ":" + thisTouch.clientX);
             }
             if (keys[0] === "space" || thisTouch === "canvas") {
-                alert("canvas");
                 $.mbAudio.play('effectSprite', 'jump');
             }
             else if (keys[0] === "up" || thisTouch === "upButton") {
