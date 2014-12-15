@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" type="text/css" href="css/game.css">
     <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="bower_components/webaudiox/build/webaudiox.js"></script>
     <script src="jquery.mb.audio.js"></script>
 
   </head>
@@ -14,7 +15,6 @@
     <div id="canvas">
       <div id="play">
         <button id="playButton">Play</button>
-      </div>
       </div>
   </body>
   <audio id='audio'>
@@ -30,8 +30,6 @@
     //alert(e.changedTouches[0].pageX); // alert pageX coordinate of touch point
     var audio = document.getElementById('audio');
     audio.play();
-    alert(e.changedTouches[0].pageX); // alert pageX coordinate of touch point
-    new Audio("../media/sound/jump.mp3").play();
    }, false)
    
   }, false)

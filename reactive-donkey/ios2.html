@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>ios simple audio</title>
+    <title>ios simple audio jquery.mb.audio</title>
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" type="text/css" href="css/game.css">
     <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
@@ -17,21 +17,24 @@
       </div>
       </div>
   </body>
-  <audio id='audio'>
-    // AAC file (Chrome/Safari/IE9)
-    <source src="http://cycle23.github.io/media/sound/jump.mp3" type="audio/mpeg" />
-    // Ogg Vorbis (Firefox)
-    <source src="http://cycle23.github.io/media/sound/jump.ogg" type="audio/ogg" />
-  </audio>
   <script>
+  $.mbAudio.sounds = {
+    effectSprite: {
+      id: "effectSprite",
+      ogg: "http://cycle23.github.io/media/sound/donkeyEffects.ogg",
+      mp3: "http://cycle23.github.io/media/sound/donkeyEffects.mp3",
+      sprite: {
+        coin: {id: "coin", start: 4.45, end: 6.5, loop: false},
+        jump: {id: "jump", start: 10.5, end: 12, loop: false},
+        gameover: {id: "gameover", start: 15.5, end: 22, loop: false}
+      }
+    }
+  };
+
   window.addEventListener('load', function(){ // on page load
    
    document.body.addEventListener('touchstart', function(e){
-    //alert(e.changedTouches[0].pageX); // alert pageX coordinate of touch point
-    var audio = document.getElementById('audio');
-    audio.play();
-    alert(e.changedTouches[0].pageX); // alert pageX coordinate of touch point
-    new Audio("../media/sound/jump.mp3").play();
+     $.mbAudio.play('effectSprite', 'jump');
    }, false)
    
   }, false)
