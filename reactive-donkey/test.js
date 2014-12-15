@@ -196,11 +196,11 @@ let pinkieStream = tick.scan({
             p.vy = -22;
             let thisTouch = "";
             if (keys[0].touches !== undefined && keys[0].touches[0] !== undefined) {
-                alert("touch");
                 thisTouch = keys[0].touches[0].target.id;
                 //alert(thisTouch.identifier + ":" + thisTouch.target.id + ":" + thisTouch.pageY + ":" + thisTouch.pageX+ ":" + thisTouch.screenY + ":" + thisTouch.screenX + ":" + thisTouch.clientY + ":" + thisTouch.clientX);
             }
             if (keys[0] === "space" || thisTouch === "canvas") {
+                alert("canvas");
                 $.mbAudio.play('effectSprite', 'jump');
             }
             else if (keys[0] === "up" || thisTouch === "upButton") {
@@ -213,9 +213,7 @@ let pinkieStream = tick.scan({
                 //testWebAudioAPI2();
             }
             else if (keys[0] === "right" || thisTouch === "rightButton") {
-                alert("audio");
                 new Audio("../media/sound/jump.mp3").play();
-                alert("played?");
             }
         }
     }
