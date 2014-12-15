@@ -1,4 +1,4 @@
-/*
+
 $.mbAudio.sounds = {
     backgroundSprite: {
         id    : "backgroundSprite",
@@ -27,14 +27,16 @@ $.mbAudio.sounds = {
             gameover  : {id: "gameover", start: 15.5, end: 22, loop: false}
         }
     }
-};*/
+};
 
 function audioIsReady() {
     $("#loading").hide();
+    /*
     if(isStandAlone || !isDevice) {
         alert("background");
         $.mbAudio.play('backgroundSprite', 'level1');
     }
+    */
 
     startGame();
 }

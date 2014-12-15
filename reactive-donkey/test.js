@@ -11,9 +11,6 @@ const rightTouch = document.getElementById("rightTouch");
 const leftTouch = document.getElementById("leftTouch");
 const upTouch = document.getElementById("upTouch");
 const downTouch = document.getElementById("downTouch");
-if (isAndroid && isChrome) {
-    document.getElementById('android-chrome-note').setAttribute('style','visibility:visible');
-}
 
 (function() {
     function resizeCanvas() {
@@ -116,8 +113,9 @@ let tick = Rx.Observable.merge(bindKey("space"),
     Rx.DOM.fromEvent(rightTouch,"touchstart"),
     Rx.DOM.fromEvent(downTouch,"touchstart")
     )
-    .buffer(Rx.Observable.interval(300));
+    .buffer(Rx.Observable.interval(33));
 
+/*
 let groundStream = Rx.Observable.interval(300)
 .map((x) => ({
         id: "ground",
@@ -135,7 +133,6 @@ let initialHater = {
     x: 1600, y: 300
 };
 
-
 //let scoreStream = Rx.
 //let haterStream = Rx.Observable.zipArray(groundStream, scoreStream).scan(initialHater,
 //    (h, [g,s]) => {
@@ -149,6 +146,7 @@ let haterStream= groundStream.scan(initialHater,
 //    h.vx = -8 - (totalScore*2);
     return onscreen(h) ? h: initialHater;
 });
+ */
 
 // pinkie is the character
 // velocity will be applied and then gravity adjusted each
@@ -202,21 +200,19 @@ let pinkieStream = tick.scan({
                 thisTouch = keys[0].touches[0].target.id;
                 //alert(thisTouch.identifier + ":" + thisTouch.target.id + ":" + thisTouch.pageY + ":" + thisTouch.pageX+ ":" + thisTouch.screenY + ":" + thisTouch.screenX + ":" + thisTouch.clientY + ":" + thisTouch.clientX);
             }
-            /*
             if (keys[0] === "space" || thisTouch === "canvas") {
                 $.mbAudio.play('effectSprite', 'jump');
             }
             else if (keys[0] === "up" || thisTouch === "upButton") {
-                testWebAudioAPI();
+                //testWebAudioAPI();
             }
             else if (keys[0] === "down" || thisTouch === "downButton") {
-                $.mbAudio.play('effectSprite2', 'jump');
+                //$.mbAudio.play('effectSprite2', 'jump');
             }
             else if (keys[0] === "left" || thisTouch === "leftButton") {
-                testWebAudioAPI2();
+                //testWebAudioAPI2();
             }
-            else*/
-            if (keys[0] === "right" || thisTouch === "rightButton") {
+            else if (keys[0] === "right" || thisTouch === "rightButton") {
                 alert("audio");
                 new Audio("../media/sound/jump.mp3").play();
                 alert("played?");
@@ -282,9 +278,9 @@ function startGame() {
     Rx.Observable
 //        .zipArray(groundStream, haterStream, pinkieStream, coinStream, statStream)
 //        .zipArray(groundStream, pinkieStream, coinStream, statStream)
-        .zipArray(groundStream, pinkieStream)
+        .zipArray(pinkieStream)
         .subscribe(renderScene);
-};
+}
 
 function gameOver() {
     location.reload(true);
