@@ -76,7 +76,13 @@ function makeElement(node) {
 }, node.text);
 }
 
+var playIt = 0;
+
 function renderScene(nodes) {
+    if (playIt === 1) {
+        playIt = 0;
+        $.mbAudio.play('effectSprite', 'jump');
+    }
     canvas.appendChild(upTouch);
     canvas.appendChild(downTouch);
     canvas.appendChild(leftTouch);
@@ -200,8 +206,9 @@ let pinkieStream = tick.scan({
                 //alert(thisTouch.identifier + ":" + thisTouch.target.id + ":" + thisTouch.pageY + ":" + thisTouch.pageX+ ":" + thisTouch.screenY + ":" + thisTouch.screenX + ":" + thisTouch.clientY + ":" + thisTouch.clientX);
             }
             if (keys[0] === "space" || thisTouch === "canvas") {
-                $.mbAudio.play('effectSprite', 'jump');
-                alert("played");
+                //$.mbAudio.play('effectSprite', 'jump');
+                //alert("playIt");
+                playIt = 1;
             }
             else if (keys[0] === "up" || thisTouch === "upButton") {
                 //testWebAudioAPI();

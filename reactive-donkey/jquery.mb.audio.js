@@ -111,7 +111,7 @@ function supportType(audioType) {
 
                 $.mbAudio.players[sID].addEventListener('canplay', function() {
                     log('canplay' + url, true);
-                    $.mbAudio.players[sID].play();
+                    //$.mbAudio.players[sID].play();
                 });
                 
                 $.mbAudio.loaded[sID] = 1;
