@@ -167,6 +167,7 @@ function supportType(audioType) {
                      if (!isMoz)
                      */
                     player.pause();
+                    alert("paused seekable lenegth is 0");
 
                     var getSeekable = setInterval(function () {
 
@@ -174,16 +175,23 @@ function supportType(audioType) {
 
                             clearInterval(getSeekable);
                             alert("managing sprite from seekable interval " + sID);
+                            alert("seekable.length: " + player.seekable.length);
+                            alert("index 0: " + player.seekable.end(0));
+                            alert("sprite.end - 1: " + sprite.end - 1);
                             $.mbAudio.manageSprite(player, sID, sound, sprite, callback);
+                        }
+                        else {
+                            alert("no manage");
                         }
                     }, 1)
 
                 } else {
+                    alert("manage direct");
                     $.mbAudio.manageSprite(player, sID, sound, sprite, callback);
                 }
                 return;
             }
-
+            alert("not sure how here");
             if (loop) {
 
                 $(player).one("ended." + sID + ",paused." + sID, function () {
@@ -244,8 +252,8 @@ function supportType(audioType) {
                 player.currentTime = sprite.start;
                 alert("checkStart set: " + player.currentTime + ", " + sprite.start);
 
-//                if (Math.round(player.currentTime) != Math.round(sprite.start)){
-                if (player.currentTime !== sprite.start){
+                if (Math.round(player.currentTime) != Math.round(sprite.start)){
+//                if (player.currentTime !== sprite.start){
                     alert("call again " + sID + ", " + player.currentTime + " != " + sprite.start);
                     checkStart(player, sID, sound, sprite, callback);
                 }else{
