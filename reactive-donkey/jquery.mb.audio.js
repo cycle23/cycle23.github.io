@@ -97,7 +97,23 @@ function supportType(audioType) {
                 $.mbAudio.players[sID] = new Audio(url);
                 $.mbAudio.players[sID].load();
                 $.mbAudio.players[sID].pause();
+                $.mbAudio.players[sID].addEventListener('error', function() {
+                    log('Audio error: ' + url + '; ' + JSON.stringify($.mbAudio.players[sID].error));
+                });
 
+                $.mbAudio.players[sID].addEventListener('play', function() {
+                    log('Starting audio: ' + url + '; MIME-type: ' + $.mbAudio.players[sID].type);
+                });
+
+                $.mbAudio.players[sID].addEventListener('ended', function() {
+                    log('Playback ended: ' + url);
+                });
+
+                $.mbAudio.players[sID].addEventListener('canplay', function() {
+                    log('canplay' + url);
+                    //$.mbAudio.players[sID].play();
+                });
+                
                 $.mbAudio.loaded[sID] = 1;
             }
         },
@@ -664,5 +680,35 @@ function supportType(audioType) {
         $.mbAudio.ch.push(this);
     }
 
+    function log(s, showAlert) {
+        var now = new Date();
+        var text = makeTwoDigits(now.getHours())
+            + ':' + makeTwoDigits(now.getMinutes())
+            + ':' + makeTwoDigits(now.getSeconds()) + ' >> ' + s;
 
+        $('#console').append('<p>' + text + '</p>');
+        console.log(text);
+
+        if (showAlert) {
+            alert(text);
+        }
+    }
+
+    function clearLog() {
+        $('#console').html('<p><strong>Console</strong> <span>[clear]</span></p>');
+
+        $('#console span').click(function() {
+            clearLog();
+        });
+    }
+
+    function makeTwoDigits(x) {
+        if (x < 10) {
+            return '0' + x;
+        }
+        else {
+            return '' + x;
+        }
+    }
 })(jQuery);
+
