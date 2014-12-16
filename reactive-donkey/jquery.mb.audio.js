@@ -76,7 +76,8 @@ function supportType(audioType) {
                     alert("blur, muteall");
                     $.mbAudio.soundsMutedByHand = true;
                     $.mbAudio.muteAllSounds();
-                }).on("focus", function () {
+                });
+                $(window).on("focus", function () {
                     alert("focus, unmuteall");
                     $.mbAudio.soundsMutedByHand = false;
                     $.mbAudio.unMuteAllSounds();
