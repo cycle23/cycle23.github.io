@@ -178,7 +178,7 @@ function supportType(audioType) {
                             alert("seekable.length: " + player.seekable.length);
                             alert("index 0: " + player.seekable.end(0));
                             alert("sprite.end: " + sprite.end);
-                            alert("sprite.end - 1: " + sprite.end - 1);
+                            alert("sprite.end - 1: " + (sprite.end - 1);
                             $.mbAudio.manageSprite(player, sID, sound, sprite, callback);
                         }
                         else {
