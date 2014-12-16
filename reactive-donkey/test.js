@@ -201,6 +201,7 @@ let pinkieStream = tick.scan({
             }
             if (keys[0] === "space" || thisTouch === "canvas") {
                 $.mbAudio.play('effectSprite', 'jump');
+                alert("played");
             }
             else if (keys[0] === "up" || thisTouch === "upButton") {
                 //testWebAudioAPI();
