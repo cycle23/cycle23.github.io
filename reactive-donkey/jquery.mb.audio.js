@@ -98,19 +98,19 @@ function supportType(audioType) {
                 $.mbAudio.players[sID].load();
                 $.mbAudio.players[sID].pause();
                 $.mbAudio.players[sID].addEventListener('error', function() {
-                    log('Audio error: ' + url + '; ' + JSON.stringify($.mbAudio.players[sID].error));
+                    log('Audio error: ' + url + '; ' + JSON.stringify($.mbAudio.players[sID].error), true);
                 });
 
                 $.mbAudio.players[sID].addEventListener('play', function() {
-                    log('Starting audio: ' + url + '; MIME-type: ' + $.mbAudio.players[sID].type);
+                    log('Starting audio: ' + url + '; MIME-type: ' + $.mbAudio.players[sID].type, true);
                 });
 
                 $.mbAudio.players[sID].addEventListener('ended', function() {
-                    log('Playback ended: ' + url);
+                    log('Playback ended: ' + url, true);
                 });
 
                 $.mbAudio.players[sID].addEventListener('canplay', function() {
-                    log('canplay' + url);
+                    log('canplay' + url, true);
                     //$.mbAudio.players[sID].play();
                 });
                 
