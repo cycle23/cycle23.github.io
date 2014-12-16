@@ -102,11 +102,11 @@ function supportType(audioType) {
                 });
 
                 $.mbAudio.players[sID].addEventListener('play', function() {
-                    log(('Starting audio: ' + url + '; MIME-type: ' + $.mbAudio.players[sID].type), true);
+                    log(('Starting audio: ' + url + '; MIME-type: ' + $.mbAudio.players[sID].type), false);
                 });
 
                 $.mbAudio.players[sID].addEventListener('ended', function() {
-                    log(('Playback ended: ' + url), true);
+                    log(('Playback ended: ' + url), false);
                 });
 
                 $.mbAudio.players[sID].addEventListener('canplay', function() {
