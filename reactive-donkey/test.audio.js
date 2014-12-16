@@ -44,7 +44,7 @@ function audioIsReady() {
 }
 
 $(document).on("initAudio", function () {
-    $.mbAudio.pause('effectSprite', audioIsReady);
+    //$.mbAudio.pause('effectSprite', audioIsReady);
     //$.mbAudio.pause('effectSprite2', audioIsReady);
     $('#start').hide();
     $("#loading").show();

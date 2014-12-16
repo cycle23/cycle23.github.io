@@ -95,14 +95,19 @@ function supportType(audioType) {
                 var url = supportType("audio/mpeg") ? soundEl.mp3 : soundEl.ogg;
 
                 $.mbAudio.players[sID] = new Audio(url);
-                $.mbAudio.players[sID].load();
-                $.mbAudio.players[sID].pause();
                 $.mbAudio.players[sID].addEventListener('error', function() {
                     log(('Audio error: ' + url + '; ' + JSON.stringify($.mbAudio.players[sID].error)), true);
                 });
 
                 $.mbAudio.players[sID].addEventListener('play', function() {
                     log(('Starting audio: ' + url + '; MIME-type: ' + $.mbAudio.players[sID].type), false);
+                });
+
+                $.mbAudio.players[sID].addEventListener('pause', function() {
+                    log(('pause audio: ' + url + '; MIME-type: ' + $.mbAudio.players[sID].type), false);
+                });
+                $.mbAudio.players[sID].addEventListener('load', function() {
+                    log(('load audio: ' + url + '; MIME-type: ' + $.mbAudio.players[sID].type), false);
                 });
 
                 $.mbAudio.players[sID].addEventListener('ended', function() {
@@ -113,7 +118,9 @@ function supportType(audioType) {
                     log('canplay' + url, false);
                     //$.mbAudio.players[sID].play();
                 });
-                
+                $.mbAudio.players[sID].load();
+                $.mbAudio.players[sID].pause();
+
                 $.mbAudio.loaded[sID] = 1;
             }
         },
