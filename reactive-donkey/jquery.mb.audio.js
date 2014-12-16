@@ -106,8 +106,23 @@ function supportType(audioType) {
                 $.mbAudio.players[sID].addEventListener('pause', function() {
                     log(('pause audio: ' + url + '; MIME-type: ' + $.mbAudio.players[sID].type), false);
                 });
-                $.mbAudio.players[sID].addEventListener('load', function() {
-                    log(('load audio: ' + url + '; MIME-type: ' + $.mbAudio.players[sID].type), false);
+                $.mbAudio.players[sID].addEventListener('timeupdate', function() {
+                    log(('timeupdate audio: ' + url + '; MIME-type: ' + $.mbAudio.players[sID].type), false);
+                });
+                $.mbAudio.players[sID].addEventListener('loadedmetadata', function() {
+                        log(('loaded metadata audio: ' + url + '; MIME-type: ' + $.mbAudio.players[sID].type), false);
+                });
+                $.mbAudio.players[sID].addEventListener('durationchange', function() {
+                    log(('durationchange audio: ' + url + '; MIME-type: ' + $.mbAudio.players[sID].type), false);
+                });
+                $.mbAudio.players[sID].addEventListener('loadeddata', function() {
+                    log(('loaded data audio: ' + url + '; MIME-type: ' + $.mbAudio.players[sID].type), false);
+                });
+                $.mbAudio.players[sID].addEventListener('startloading', function() {
+                    log(('startloading audio: ' + url + '; MIME-type: ' + $.mbAudio.players[sID].type), false);
+                });
+                $.mbAudio.players[sID].addEventListener('progress', function() {
+                    log(('progress audio: ' + url + '; MIME-type: ' + $.mbAudio.players[sID].type), false);
                 });
 
                 $.mbAudio.players[sID].addEventListener('ended', function() {
