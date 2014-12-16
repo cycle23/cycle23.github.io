@@ -110,7 +110,7 @@ function supportType(audioType) {
                 });
 
                 $.mbAudio.players[sID].addEventListener('canplay', function() {
-                    log('canplay' + url, true);
+                    log('canplay' + url, false);
                     //$.mbAudio.players[sID].play();
                 });
                 
