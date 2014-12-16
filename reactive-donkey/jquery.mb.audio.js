@@ -73,14 +73,14 @@ function supportType(audioType) {
 
             if (!$.mbAudio.isInit) {
                 $(window).on("blur",function () {
-                    alert("blur, muteall");
-                    $.mbAudio.soundsMutedByHand = true;
-                    $.mbAudio.muteAllSounds();
-                });
-                $(window).on("focus", function () {
+                    //alert("blur, muteall");
+                    //$.mbAudio.soundsMutedByHand = true;
+                    //$.mbAudio.muteAllSounds();
+                })
+                .on("focus", function () {
                     alert("focus, unmuteall");
-                    $.mbAudio.soundsMutedByHand = false;
-                    $.mbAudio.unMuteAllSounds();
+                    //$.mbAudio.soundsMutedByHand = false;
+                    //$.mbAudio.unMuteAllSounds();
                 });
                 alert("isInit");
                 $.mbAudio.isInit = true;
