@@ -167,7 +167,7 @@ function supportType(audioType) {
                      if (!isMoz)
                      */
                     player.pause();
-                    alert("paused seekable lenegth is 0");
+                    alert("paused seekable length is 0");
 
                     var getSeekable = setInterval(function () {
 
@@ -177,6 +177,7 @@ function supportType(audioType) {
                             alert("managing sprite from seekable interval " + sID);
                             alert("seekable.length: " + player.seekable.length);
                             alert("index 0: " + player.seekable.end(0));
+                            alert("sprite.end: " + sprite.end);
                             alert("sprite.end - 1: " + sprite.end - 1);
                             $.mbAudio.manageSprite(player, sID, sound, sprite, callback);
                         }
