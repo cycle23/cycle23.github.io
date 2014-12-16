@@ -80,7 +80,7 @@ var playIt = 0;
 
 function renderScene(nodes) {
     if (playIt === 1) {
-        $.log("playit");
+        //$.log("playit");
         playIt = 0;
         $.mbAudio.play('effectSprite', 'jump');
     }
