@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="description" content="Worzone written in RxJS">
+    <meta name="author" content="Rx Team">
+    <title>Worzone</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div id="sidebar">
+        <div id="instructions">
+            <p>Left: a,s,d,w,f</p>
+            <p>Right: arrow keys, -</p>
+        </div>
+        <div id="controls">
+            <label for="sound">sound</label>
+            <input type="checkbox" value="sound" id="sound"/>
+        </div>
+    </div>
+    <script src="lib/raphael-min.js"></script>
+    <script src="../reactive-donkey/bower_components/rxjs/dist/rx.lite.js"></script>
+    <!--script src="../reactive-donkey/bower_components/rxjs-dom/dist/rx.dom.js"></script-->
+    <script src="rx.dom.lite.js"></script>
+    <script src="vector.js"></script>
+    <script src="asciigraphic.js"></script>
+    <script src="audio.js"></script>
+    <script src="figureimage.js"></script>
+    <script src="keyboard.js"></script>
+    <script src="maze.js"></script>
+    <script src="rectangle.js"></script>
+    <script src="index.js"></script>
+</body>
+</html>
