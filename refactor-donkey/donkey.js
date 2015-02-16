@@ -8,81 +8,6 @@
 ;(function(Game,undefined) {
     function Donkey() {
 
-        function resizeCanvas() {
-            var canvas = document.getElementById("canvas");
-            var scale = window.innerHeight / canvas.clientHeight;
-            canvas.style.mozTransform = "scale(" + scale + ")";
-            canvas.style.webkitTransform = "scale(" + scale + ")";
-            canvas.style.transform = "scale(" + scale + ")";
-            canvas.style.width = (window.innerWidth / scale) + "px";
-        }
-
-        const canvas = document.getElementById("canvas");
-        if (isAndroid && isChrome) {
-            document.getElementById('android-chrome-note').setAttribute('style', 'visibility:visible');
-        }
-
-        // these were explained as inefficient but simple storage copiers to keep items immutable
-        function extend(target, src) {
-            for (var prop in src) {
-                if (src.hasOwnProperty(prop)) {
-                    target[prop] = src[prop];
-                }
-            }
-        }
-
-        function assoc() {
-            var out = {};
-            for (var i = 0; i < arguments.length; i++) {
-                extend(out, arguments[i]);
-            }
-            return out;
-        }
-
-        // (final | 0 will drop any decimal portion)
-        function coordBI(c, baseC) {
-            return (c + (baseC || 0) | 0);
-        }
-
-        // just a quick helper to detect if an item is in the view
-        function onscreen(node) {
-            return !(node.x < -300 || node.y < -1000 || node.y > 1000);
-        }
-
-        function velocity(node) {
-            // assoc is used like underscore's extend...
-            return assoc(node, {
-                x: node.x + node.vx,
-                y: node.y + node.vy
-            });
-        }
-
-        function intersects(c, p) {
-            var px = coordBI(p.x, p.baseX);
-            var cx = coordBI(c.x, c.baseX);
-            var py = coordBI(p.y, p.baseY);
-            var cy = coordBI(c.y, c.baseY);
-
-            return (Math.abs(cx - px) < 100 && Math.abs(cy - py) < 100);
-        }
-
-        function makeElement(node) {
-            return React.DOM.div({
-                className: node.id,
-                style: {
-                    left: (node.x + (node.baseX || 0)) | 0 + "px",
-                    top: (node.y + (node.baseY || 0)) | 0 + "px"
-                }
-            }, node.text);
-        }
-
-        function renderScene(nodes) {
-            return React.renderComponent(
-                React.DOM.div(null, nodes.map(makeElement)),
-                canvas
-            );
-        }
-
         // mousetrap binding, using emca6/harmony lambda and reactive subject
         function bindKey(key) {
             var sub = new Rx.Subject();
@@ -101,7 +26,7 @@
         // (buffer + scan(1)?)
         var tick = Rx.Observable.merge(bindKey("space"),
             bindKey("up"),
-            Rx.DOM.fromEvent(canvas, "touchstart"))
+            Rx.DOM.fromEvent(Game.canvas, "touchstart"))
             .buffer(Rx.Observable.interval(33));
 
         var groundStream = Rx.Observable.interval(33)
@@ -131,9 +56,9 @@
 
         var haterStream = groundStream.scan(initialHater,
             function (h, g) {
-                h = velocity(h);
+                h = Game.DonkeyUtils().velocity(h);
                 h.vx = -8 - (totalScore * 2);
-                return onscreen(h) ? h : initialHater;
+                return Game.DonkeyUtils().onscreen(h) ? h : initialHater;
             });
 
         // pinkie is the character
@@ -150,9 +75,9 @@
         }, function (p, keysAndHaters) {
             var keys = keysAndHaters[0];
             var hater = keysAndHaters[1];
-            p = velocity(p);
+            p = Game.DonkeyUtils().velocity(p);
 
-            if (intersects(p, hater) && !p.gameOver) {
+            if (Game.DonkeyUtils().intersects(p, hater) && !p.gameOver) {
                 // seeing this function hit 3x on Chrome with gameOver not true
                 // likely due to the merge before?
                 p.gameOver = true;
@@ -193,7 +118,7 @@
             }
 
             return p;
-        }).takeWhile(onscreen);
+        }).takeWhile(Game.DonkeyUtils().onscreen);
 
         var initialCoin = {
             id: "coin",
@@ -205,12 +130,12 @@
         // want to be able to detect coin to pinkie
         var coinStream = pinkieStream
             .scan(initialCoin, function (c, pinkie) {
-                c = velocity(c);
+                c = Game.DonkeyUtils().velocity(c);
                 // will be changing this if she touched, so otherwise..
                 if (c.vy < 0) {
                     c.vy = c.vy * 2;
                 }
-                if (c.vy === 0 && !pinkie.gameOver && intersects(c, pinkie)) {
+                if (c.vy === 0 && !pinkie.gameOver && Game.DonkeyUtils().intersects(c, pinkie)) {
                     $.mbAudio.play('effectSprite', 'coin');
                     c.vx = 0;
                     c.vy = -1;
@@ -220,7 +145,7 @@
                     return initialCoin;
                 }
                 if (c.y < -1000) {
-                    v = velocity(initialCoin);
+                    v = Game.DonkeyUtils().velocity(initialCoin);
                     v.vx = v.vx * (c.points + 1);
                     v.points = c.points;
                     return v;
@@ -248,15 +173,12 @@
         function startGame() {
             Rx.Observable
                 .zipArray(groundStream, haterStream, pinkieStream, coinStream, statStream)
-                .subscribe(renderScene);
+                .subscribe(Game.DonkeyReact().renderScene);
         }
 
         function gameOver() {
             location.reload(true);
         }
-
-        resizeCanvas();
-        window.addEventListener("resize", resizeCanvas);
 
         return {
             startGame: startGame
