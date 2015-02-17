@@ -33,6 +33,7 @@
             //$.mbAudio.pause('effectSprite', audioIsReady);
             $('#start').hide();
             $("#loading").show();
+            audioIsReady();
         });
 
         return {
