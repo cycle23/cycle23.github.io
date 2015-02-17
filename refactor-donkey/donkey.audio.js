@@ -24,13 +24,13 @@
         function audioIsReady() {
             $("#loading").hide();
             if (isStandAlone || !isDevice) {
-                $.mbAudio.play('backgroundSprite', 'level1');
+                //$.mbAudio.play('backgroundSprite', 'level1');
             }
             Game.Donkey().startGame();
         }
 
         $(document).on("initAudio", function () {
-            $.mbAudio.pause('effectSprite', audioIsReady);
+            //$.mbAudio.pause('effectSprite', audioIsReady);
             $('#start').hide();
             $("#loading").show();
         });

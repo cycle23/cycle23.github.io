@@ -46,12 +46,6 @@
             x: 1600, y: 300
         };
 
-
-        //var scoreStream = Rx.
-        //var haterStream = Rx.Observable.zipArray(groundStream, scoreStream).scan(initialHater,
-        //    (h, [g,s]) => {
-
-        // TODO: COME ON1!!?!?!?!?
         var totalScore = 0;
 
         var haterStream = groundStream.scan(initialHater,
@@ -84,7 +78,7 @@
                 // uses react
                 p.id = "pinkie gameover";
                 p.vy = -20;
-                $.mbAudio.play('effectSprite', 'gameover');
+                //$.mbAudio.play('effectSprite', 'gameover');
                 setTimeout(function () {
                     gameOver();
                 }, 10000);
@@ -110,7 +104,7 @@
                 if (p.y === 0) {
                     p.id = "pinkie jumping";
                     p.vy = -22;
-                    $.mbAudio.play('effectSprite', 'jump');
+                    //$.mbAudio.play('effectSprite', 'jump');
                 }
             }
             else if (keys != undefined && keys[0] != undefined) {
@@ -136,7 +130,7 @@
                     c.vy = c.vy * 2;
                 }
                 if (c.vy === 0 && !pinkie.gameOver && Game.DonkeyUtils().intersects(c, pinkie)) {
-                    $.mbAudio.play('effectSprite', 'coin');
+                    //$.mbAudio.play('effectSprite', 'coin');
                     c.vx = 0;
                     c.vy = -1;
                     c.points += 1;
