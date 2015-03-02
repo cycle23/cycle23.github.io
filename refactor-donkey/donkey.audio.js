@@ -1,8 +1,8 @@
 ;(function(Game,undefined) {
     function DonkeyAudio() {
         var background = new Howl({
-            urls: ['https://cycle23.github.io/media/music/coldwet.mp3',
-                   'https://cycle23.github.io/media/music/coldwet.ogg'],
+            urls: ['https://cycle23.github.io/media/music/shortwet.mp3',
+                   'https://cycle23.github.io/media/music/shortwet.ogg'],
             autoplay: false,
             loop: true,
             volume: 0.25,
