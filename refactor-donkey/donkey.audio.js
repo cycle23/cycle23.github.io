@@ -23,6 +23,7 @@
         */
         function audioIsReady() {
             $('#loading').hide();
+            alert("update");
             $('#start').show();
         }
 
