@@ -10,6 +10,7 @@
                 audioIsReady();
             }
         });
+        /*
         var effects = new Howl({
             urls: ['https://cycle23.github.io/media/sound/donkeyEffects.mp3',
                    'https://cycle23.github.io/media/sound/donkeyEffects.ogg'],
@@ -19,7 +20,7 @@
                 gameover: [15500, 2200]
             }
         });
-
+        */
         function audioIsReady() {
             $('#loading').hide();
             $('#start').show();
