@@ -3,7 +3,7 @@
         var background = new Howl({
             urls: ['https://cycle23.github.io/media/music/coldwet.mp3',
                    'https://cycle23.github.io/media/music/coldwet.ogg'],
-            autoplay: true,
+            autoplay: false,
             loop: true,
             volume: 0.25
         });
@@ -22,7 +22,7 @@
             //if (isStandAlone || !isDevice) {
                 //$.mbAudio.play('backgroundSprite', 'level1');
             //}
-            //background.play();
+            background.play();
             Game.Donkey().startGame();
         }
 
