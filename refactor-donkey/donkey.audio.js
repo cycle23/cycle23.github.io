@@ -39,7 +39,7 @@
         }
         $(document).on("initAudio", function () {
             $('#start').hide();
-            //background.play();
+            background.play();
             Game.Donkey().startGame();
         });
 
