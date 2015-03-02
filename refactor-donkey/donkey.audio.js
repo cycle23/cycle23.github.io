@@ -5,7 +5,10 @@
                    'https://cycle23.github.io/media/music/coldwet.ogg'],
             autoplay: false,
             loop: true,
-            volume: 0.25
+            volume: 0.25,
+            onload: function() {
+                audioIsReady();
+            }
         });
         var effects = new Howl({
             urls: ['https://cycle23.github.io/media/sound/donkeyEffects.mp3',
@@ -18,19 +21,15 @@
         });
 
         function audioIsReady() {
-            $("#loading").hide();
-            //if (isStandAlone || !isDevice) {
-                //$.mbAudio.play('backgroundSprite', 'level1');
-            //}
-            background.play();
-            Game.Donkey().startGame();
+            $('#start').show();
         }
 
         $(document).on("initAudio", function () {
-            //$.mbAudio.pause('effectSprite', audioIsReady);
             $('#start').hide();
             $("#loading").show();
-            audioIsReady();
+            background.play();
+            $("#loading").hide();
+            Game.Donkey().startGame();
         });
 
         return {
