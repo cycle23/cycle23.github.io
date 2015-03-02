@@ -7,7 +7,6 @@
  */
 ;(function(Game,undefined) {
     function Donkey() {
-/*
         // mousetrap binding, using emca6/harmony lambda and reactive subject
         function bindKey(key) {
             var sub = new Rx.Subject();
@@ -176,7 +175,6 @@
         return {
             startGame: startGame
         }
-     */
     }
     Game.Donkey = Donkey;
 }(window.Game));

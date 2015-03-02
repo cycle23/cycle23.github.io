@@ -2,7 +2,6 @@
  * Created by Cody on 2/15/2015.
  */
 ;(function (Game, undefined) {
-/*
     function resizeCanvas() {
         var canvas = document.getElementById("canvas");
         var scale = window.innerHeight / canvas.clientHeight;
@@ -20,19 +19,8 @@
         var react = Game.DonkeyReact();
         var utils = Game.DonkeyUtils();
         // DonkeyAudio will call gameStart from main Donkey class
-        //var donkey = Game.Donkey();
+        var donkey = Game.Donkey();
     });
-    */
 }(window.Game));
-
-function initAudio() {
-    var background = new Howl({
-        urls: ['https://cycle23.github.io/media/music/shortwet.mp3',
-            'https://cycle23.github.io/media/music/shortwet.ogg'],
-        autoplay: true,
-        loop: true,
-        volume: 0.25,
-    });
-}
 
 

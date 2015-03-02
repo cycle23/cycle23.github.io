@@ -4,7 +4,6 @@
 
 ;(function(Game,undefined) {
     function DonkeyReact() {
-/*
         function makeElement(node) {
             return React.DOM.div({
                 className: node.id,
@@ -25,7 +24,6 @@
         return {
             renderScene : renderScene
         }
-        */
     }
     Game.DonkeyReact = DonkeyReact;
 }(window.Game));
