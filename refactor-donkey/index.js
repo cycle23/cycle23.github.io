@@ -23,15 +23,16 @@
         //var donkey = Game.Donkey();
     });
     */
-    var audio = Game.DonkeyAudio();
-    function initAudio() {
-        alert("waaah?");
-    }
-
 }(window.Game));
 
 function initAudio() {
-    alert("howdy");
-    window.Game.DonkeyAudio().initAudio();
+    var background = new Howl({
+        urls: ['https://cycle23.github.io/media/music/shortwet.mp3',
+            'https://cycle23.github.io/media/music/shortwet.ogg'],
+        autoplay: true,
+        loop: true,
+        volume: 0.25,
+    });
 }
+
 

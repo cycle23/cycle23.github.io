@@ -1,5 +1,6 @@
 ;(function(Game,undefined) {
     function DonkeyAudio() {
+        /*
         var background = new Howl({
             urls: ['https://cycle23.github.io/media/music/shortwet.mp3',
                    'https://cycle23.github.io/media/music/shortwet.ogg'],
@@ -10,7 +11,6 @@
                 audioIsReady();
             }
         });
-        /*
         var effects = new Howl({
             urls: ['https://cycle23.github.io/media/sound/donkeyEffects.mp3',
                    'https://cycle23.github.io/media/sound/donkeyEffects.ogg'],
@@ -20,13 +20,11 @@
                 gameover: [15500, 2200]
             }
         });
-        */
         function audioIsReady() {
-            //$('#loading').hide();
-            //alert("update 2");
-            //$('#start').show();
+            $('#start').show();
+            $("#loading").hide();
+            //background.play();
         }
-/*
         $(document).on("initAudio", function () {
             $('#start').hide();
             $("#loading").show();
@@ -34,20 +32,12 @@
             $("#loading").hide();
             //Game.Donkey().startGame();
         });
-        */
-        function initAudio() {
-            //$('#start').hide();
-            //$("#loading").show();
-            alert("init");
-            background.play();
-            //$("#loading").hide();
-        }
-        //Game.Donkey().startGame();
 
         return {
             audioIsReady : audioIsReady,
             initAudio : initAudio
         }
+    */
     }
     Game.DonkeyAudio = DonkeyAudio;
 }(window.Game));
