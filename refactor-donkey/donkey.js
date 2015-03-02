@@ -19,16 +19,20 @@
         // - tick is the observable interval at 33ms
         // - buffer will create an array of the number of
         //   merged events during the interval
-        // - but we are only reading the first event,
-        //   and only by PinkieStream
-        // TODO: don't use merge. I think this triples the events delivered and leads to issues on Chrome on Windows, at least.
-        // (buffer + scan(1)?)
-        var tick = Rx.Observable.merge(bindKey("space"),
+        var _tick = Rx.Observable.merge(bindKey("space"),
             bindKey("up"),
             Rx.DOM.fromEvent(Game.canvas, "touchstart"))
-            .buffer(Rx.Observable.interval(33));
+            .buffer(Rx.Observable.interval(33))
+            .doOnNext( function() {
+                    //this.log('tick');
+                }, console);
 
-        var groundStream = Rx.Observable.interval(33)
+        var tick = _tick.publish();
+
+        var _groundStream = Rx.Observable.interval(33)
+            .doOnNext( function() {
+                //this.log('ground');
+            }, console)
             .map(function (x) {
                 return {
                     id: "ground",
@@ -38,6 +42,7 @@
                 };
             });
 
+        var groundStream = _groundStream.publish();
 
         var initialHater = {
             id: "hater",
@@ -47,18 +52,24 @@
 
         var totalScore = 0;
 
-        var haterStream = groundStream.scan(initialHater,
+        var _haterStream = groundStream.scan(initialHater,
             function (h, g) {
                 h = Game.DonkeyUtils().velocity(h);
                 h.vx = -8 - (totalScore * 2);
                 return Game.DonkeyUtils().onscreen(h) ? h : initialHater;
-            });
+            })
+            .doOnNext( function() {
+                //this.log('hater');
+            }, console);
+
+        var haterStream = _haterStream.publish();
+
 
         // pinkie is the character
         // velocity will be applied and then gravity adjusted each
         // tick scan
         // the keys are mapped here from tick buffer
-        var pinkieStream = Rx.Observable.zipArray(tick, haterStream).scan({
+        var _pinkieStream = Rx.Observable.zipArray(tick, haterStream).scan({
             id: "pinkie",
             baseY: 320,
             x: 0, y: 0,
@@ -71,13 +82,12 @@
             p = Game.DonkeyUtils().velocity(p);
 
             if (Game.DonkeyUtils().intersects(p, hater) && !p.gameOver) {
-                // seeing this function hit 3x on Chrome with gameOver not true
-                // likely due to the merge before?
                 p.gameOver = true;
                 // uses react
                 p.id = "pinkie gameover";
                 p.vy = -20;
-                //$.mbAudio.play('effectSprite', 'gameover');
+                //console.log('game is over');
+                Game.DonkeyAudio().effects.play('gameover');
                 setTimeout(function () {
                     gameOver();
                 }, 10000);
@@ -103,7 +113,8 @@
                 if (p.y === 0) {
                     p.id = "pinkie jumping";
                     p.vy = -22;
-                    //$.mbAudio.play('effectSprite', 'jump');
+                    //console.log('jumping');
+                    Game.DonkeyAudio().effects.play('jump');
                 }
             }
             else if (keys != undefined && keys[0] != undefined) {
@@ -111,7 +122,12 @@
             }
 
             return p;
-        }).takeWhile(Game.DonkeyUtils().onscreen);
+        }).takeWhile(Game.DonkeyUtils().onscreen)
+        .doOnNext( function() {
+                //this.log('pinkie');
+            }, console);
+
+        var pinkieStream = _pinkieStream.publish();
 
         var initialCoin = {
             id: "coin",
@@ -121,7 +137,7 @@
         };
 
         // want to be able to detect coin to pinkie
-        var coinStream = pinkieStream
+        var _coinStream = pinkieStream
             .scan(initialCoin, function (c, pinkie) {
                 c = Game.DonkeyUtils().velocity(c);
                 // will be changing this if she touched, so otherwise..
@@ -129,7 +145,8 @@
                     c.vy = c.vy * 2;
                 }
                 if (c.vy === 0 && !pinkie.gameOver && Game.DonkeyUtils().intersects(c, pinkie)) {
-                    //$.mbAudio.play('effectSprite', 'coin');
+                    //console.log('coin is hit');
+                    Game.DonkeyAudio().effects.play('coin');
                     c.vx = 0;
                     c.vy = -1;
                     c.points += 1;
@@ -144,7 +161,12 @@
                     return v;
                 }
                 return c;
-            });
+            })
+            .doOnNext( function() {
+                //this.log('coin');
+            }, console);
+
+        var coinStream = _coinStream.publish();
 
         var initialStat = {
             id: "stat",
@@ -153,7 +175,7 @@
             text: "Init.."
         };
 
-        var statStream = coinStream
+        var _statStream = coinStream
             .scan(initialStat, function (s, coin) {
                 if (coin.vy === -1) {
                     s.points += coin.points;
@@ -161,8 +183,20 @@
                 s.text = "Points: " + s.points;
                 totalScore = s.points;
                 return s;
-            });
+            })
+            .doOnNext( function() {
+                //this.log('stat');
+            }, console);
+
+        var statStream = _statStream.publish();
+
         function startGame() {
+            var ticked = tick.connect();
+            var groundStreamed = groundStream.connect();
+            var haterStreamed = haterStream.connect();
+            var pinkieStreamed = pinkieStream.connect();
+            var coinStreamed = coinStream.connect();
+            var statStreamed = statStream.connect();
             Rx.Observable
                 .zipArray(groundStream, haterStream, pinkieStream, coinStream, statStream)
                 .subscribe(Game.DonkeyReact().renderScene);

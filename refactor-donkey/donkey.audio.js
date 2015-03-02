@@ -14,10 +14,11 @@
             urls: ['http://cycle23.github.io/media/sound/donkeyEffects.mp3',
                    'http://cycle23.github.io/media/sound/donkeyEffects.ogg'],
             sprite: {
-                coin: [4450, 6500],
-                jump: [10500, 12000],
-                gameover: [15500, 2200]
+                coin: [4850, 2050],
+                jump: [10500, 1500],
+                gameover: [15500, 6500]
             },
+            loop: false,
             onload: function() {
                 audioIsReady("effects");
             }
@@ -44,7 +45,7 @@
 
         return {
             audioIsReady : audioIsReady,
-            initAudio : initAudio
+            effects : effects
         }
     }
     Game.DonkeyAudio = DonkeyAudio;
