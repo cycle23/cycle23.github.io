@@ -39,13 +39,14 @@
         }
         $(document).on("initAudio", function () {
             $('#start').hide();
-            background.play();
+            //background.play();
             Game.Donkey().startGame();
         });
 
         return {
             audioIsReady : audioIsReady,
-            effects : effects
+            effects : effects,
+            background : background
         }
     }
     Game.DonkeyAudio = DonkeyAudio;
