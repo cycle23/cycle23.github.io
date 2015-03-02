@@ -165,10 +165,11 @@
             });
 
         function startGame() {
+            /*
             Rx.Observable
-                //.zipArray(groundStream, haterStream, pinkieStream, coinStream, statStream)
-                .zipArray(groundStream, pinkieStream, coinStream, statStream)
+                .zipArray(groundStream, haterStream, pinkieStream, coinStream, statStream)
                 .subscribe(Game.DonkeyReact().renderScene);
+            */
         }
 
         function gameOver() {
