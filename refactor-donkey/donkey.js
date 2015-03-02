@@ -27,9 +27,9 @@
         var tick = Rx.Observable.merge(bindKey("space"),
             bindKey("up"),
             Rx.DOM.fromEvent(Game.canvas, "touchstart"))
-            .buffer(Rx.Observable.interval(33));
+            .buffer(Rx.Observable.interval(66));
 
-        var groundStream = Rx.Observable.interval(33)
+        var groundStream = Rx.Observable.interval(66)
             .map(function (x) {
                 return {
                     id: "ground",
