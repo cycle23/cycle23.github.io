@@ -12,10 +12,6 @@
         canvas.style.width = (window.innerWidth / scale) + "px";
     }
 
-    if (isAndroid && isChrome) {
-        document.getElementById('android-chrome-note').setAttribute('style', 'visibility:visible');
-    }
-
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
 
