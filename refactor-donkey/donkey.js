@@ -7,7 +7,7 @@
  */
 ;(function(Game,undefined) {
     function Donkey() {
-
+/*
         // mousetrap binding, using emca6/harmony lambda and reactive subject
         function bindKey(key) {
             var sub = new Rx.Subject();
@@ -27,9 +27,9 @@
         var tick = Rx.Observable.merge(bindKey("space"),
             bindKey("up"),
             Rx.DOM.fromEvent(Game.canvas, "touchstart"))
-            .buffer(Rx.Observable.interval(66));
+            .buffer(Rx.Observable.interval(33));
 
-        var groundStream = Rx.Observable.interval(66)
+        var groundStream = Rx.Observable.interval(33)
             .map(function (x) {
                 return {
                     id: "ground",
@@ -163,13 +163,10 @@
                 totalScore = s.points;
                 return s;
             });
-
         function startGame() {
-            /*
             Rx.Observable
                 .zipArray(groundStream, haterStream, pinkieStream, coinStream, statStream)
                 .subscribe(Game.DonkeyReact().renderScene);
-            */
         }
 
         function gameOver() {
@@ -179,6 +176,7 @@
         return {
             startGame: startGame
         }
+     */
     }
     Game.Donkey = Donkey;
 }(window.Game));

@@ -23,7 +23,7 @@
         */
         function audioIsReady() {
             $('#loading').hide();
-            alert("update");
+            alert("update 2");
             $('#start').show();
         }
 
@@ -32,7 +32,7 @@
             $("#loading").show();
             background.play();
             $("#loading").hide();
-            Game.Donkey().startGame();
+            //Game.Donkey().startGame();
         });
 
         return {

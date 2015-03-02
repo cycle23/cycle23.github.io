@@ -21,6 +21,6 @@
         var react = Game.DonkeyReact();
         var utils = Game.DonkeyUtils();
         // DonkeyAudio will call gameStart from main Donkey class
-        var donkey = Game.Donkey();
+        //var donkey = Game.Donkey();
     });
 }(window.Game));
