@@ -2,7 +2,7 @@
  * Created by Cody on 2/15/2015.
  */
 ;(function (Game, undefined) {
-
+/*
     function resizeCanvas() {
         var canvas = document.getElementById("canvas");
         var scale = window.innerHeight / canvas.clientHeight;
@@ -14,7 +14,6 @@
 
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
-
     Rx.DOM.ready().subscribe(function() {
         // game kicks off by user triggering event listened for within DonkeyAudio
         var audio = Game.DonkeyAudio();
@@ -23,4 +22,16 @@
         // DonkeyAudio will call gameStart from main Donkey class
         //var donkey = Game.Donkey();
     });
+    */
+    var audio = Game.DonkeyAudio();
+    function initAudio() {
+        alert("waaah?");
+    }
+
 }(window.Game));
+
+function initAudio() {
+    alert("howdy");
+    window.Game.DonkeyAudio().initAudio();
+}
+

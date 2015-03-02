@@ -22,11 +22,11 @@
         });
         */
         function audioIsReady() {
-            $('#loading').hide();
-            alert("update 2");
-            $('#start').show();
+            //$('#loading').hide();
+            //alert("update 2");
+            //$('#start').show();
         }
-
+/*
         $(document).on("initAudio", function () {
             $('#start').hide();
             $("#loading").show();
@@ -34,9 +34,19 @@
             $("#loading").hide();
             //Game.Donkey().startGame();
         });
+        */
+        function initAudio() {
+            //$('#start').hide();
+            //$("#loading").show();
+            alert("init");
+            background.play();
+            //$("#loading").hide();
+        }
+        //Game.Donkey().startGame();
 
         return {
-            audioIsReady : audioIsReady
+            audioIsReady : audioIsReady,
+            initAudio : initAudio
         }
     }
     Game.DonkeyAudio = DonkeyAudio;

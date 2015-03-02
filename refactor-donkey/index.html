@@ -7,19 +7,22 @@
     <title>Refactor Donkey</title>
     <!--link rel="stylesheet" href="../reactive-donkey/bower_components/bootstrap/dist/css/bootstrap.css"-->
     <link rel="stylesheet" type="text/css" href="game.css">
+    <!--
     <script type="text/javascript" src="../reactive-donkey/bower_components/rxjs/dist/rx.all.js"></script>
     <script type="text/javascript" src="../reactive-donkey/bower_components/react/react.js"></script>
     <script type="text/javascript" src="../reactive-donkey/bower_components/mousetrap/mousetrap.js"></script>
     <script type="text/javascript" src="../reactive-donkey/bower_components/rxjs-dom/dist/rx.dom.js"></script>
     <script type="text/javascript" src="../reactive-donkey/bower_components/jquery/dist/jquery.js"></script>
+    -->
     <script type="text/javascript" src="../reactive-donkey/bower_components/howler/howler.js"></script>
   </head>
   <body>
     <div id="canvas">
-      <div id="start" style="display: none;">
-        <button id="startButton" style="cursor: pointer;" onmousedown="$(document).trigger('initAudio'); ">Press for Donkey Time</button>
+      <div id="start" ><!--style="display: none;"-->
+        <!--button id="startButton" style="cursor: pointer;" onmousedown="$(document).trigger('initAudio'); ">Press for Donkey Time</button-->
+          <button id="startButton" style="cursor: pointer;" onclick="initAudio()">Press for Donkey Time</button>
       </div>
-      <div id="loading">... loading ...</div>
+      <!--div id="loading">... loading ...</div-->
     </div>
 
     <script type="application/javascript"

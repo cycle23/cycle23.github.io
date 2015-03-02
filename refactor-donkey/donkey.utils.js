@@ -3,7 +3,7 @@
  */
 ;(function(Game,undefined) {
     function DonkeyUtils() {
-
+/*
         // these were explained as inefficient but simple storage copiers to keep items immutable
         function extend(target, src) {
             for (var prop in src) {
@@ -53,6 +53,7 @@
             onscreen : onscreen,
             velocity : velocity
         }
+        */
     }
 
     Game.DonkeyUtils = DonkeyUtils;
