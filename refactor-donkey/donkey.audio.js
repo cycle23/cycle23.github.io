@@ -21,6 +21,7 @@
         });
 
         function audioIsReady() {
+            $('#loading').hide();
             $('#start').show();
         }
 
