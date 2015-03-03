@@ -1,4 +1,3 @@
-// currently using howler and jquery (for audio ready controls)
 ;(function(Game,undefined) {
     function DonkeyAudio() {
         var background = new Howl({
