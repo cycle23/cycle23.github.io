@@ -4,6 +4,9 @@
 
 ;(function(Game,undefined) {
     function DonkeyReact() {
+        console.log("react init");
+
+        // ReactJS DOM element creation
         function makeElement(node) {
             return React.DOM.div({
                 className: node.id,
@@ -14,6 +17,7 @@
             }, node.text);
         }
 
+        // ReactJS DOM rendering to game canvas
         function renderScene(nodes) {
             return React.renderComponent(
                 React.DOM.div(null, nodes.map(makeElement)),
