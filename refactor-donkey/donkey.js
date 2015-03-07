@@ -51,11 +51,19 @@
         };
 
         var totalScore = 0;
+        var haterFactor = 0;
 
         var _haterStream = groundStream.scan(initialHater,
             function (h, g) {
                 h = Game.DonkeyUtils().velocity(h);
-                h.vx = -8 - (totalScore * 2);
+                h.vx = -8 - (haterFactor * 2);
+                if (Game.DonkeyUtils().onscreen(h)) {
+                    return h;
+                }
+                else {
+                    haterFactor += 1;
+                    return initialHater;
+                }
                 return Game.DonkeyUtils().onscreen(h) ? h : initialHater;
             })
             .doOnNext( function() {
@@ -147,17 +155,22 @@
                 if (c.vy === 0 && !pinkie.gameOver && Game.DonkeyUtils().intersects(c, pinkie)) {
                     //console.log('coin is hit');
                     Game.DonkeyAudio().effects.play('coin');
+                    // value worth relative to speed of hater
+                    c.points = c.points + haterFactor;
+                    // coin hit, slow down hater to original
+                    haterFactor = 0;
                     c.vx = 0;
                     c.vy = -1;
-                    c.points += 1;
                 }
                 if (c.x < -300) {
+                    // coin off screen, speed up hater
+                    haterFactor *= 1;
                     return initialCoin;
                 }
                 if (c.y < -1000) {
                     v = Game.DonkeyUtils().velocity(initialCoin);
-                    v.vx = v.vx * (c.points + 1);
-                    v.points = c.points;
+                    v.vx = v.vx * ((c.points + 1)/2);
+                    v.points = c.points + 1;
                     return v;
                 }
                 return c;
