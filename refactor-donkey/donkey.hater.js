@@ -10,20 +10,20 @@
  */
 ;(function(Game,undefined) {
     var haterStream;
-    function DonkeyHater(ground) {
-        var initialHater = {
-            // see game.css
-            id: "hater",
-            vx: -10, vy: 0,
-            x: 1600, y: 300
-        };
+    var initialHater = {
+        // see game.css
+        id: "hater",
+        vx: -10, vy: 0,
+        x: 1600, y: 300
+    };
+    function DonkeyHater(ground, utils, getScore) {
 
         if (ground !== undefined && haterStream === undefined) {
                 var _haterStream = ground.scan(initialHater,
                     function (h, g) {
-                        h = Game.DonkeyUtils().velocity(h);
-                        h.vx = -8 - (Game.DonkeyStat().totalScore * 2);
-                        return Game.DonkeyUtils().onscreen(h) ? h : initialHater;
+                        h = utils.velocity(h);
+                        h.vx = -8 - (getScore() * 2);
+                        return utils.onscreen(h) ? h : initialHater;
                     })
                     .doOnError(function () {
                         this.log('hater error');

@@ -29,25 +29,54 @@
         // TODO: use a global value for the timeslice
         var ground = Game.DonkeyGround();
 
+        var totalScore = 0;
+
         // hater stream currently uses the ground stream
-        var hater = Game.DonkeyHater(ground.groundStream);
+        var hater = Game.DonkeyHater(ground.groundStream, utils,
+            function() {
+                return totalScore;
+            }
+        );
+
+        // audio preloads and enables control for initAudio callback
+        var audio = Game.DonkeyAudio();
+
+        $(document).on("initAudio", function () {
+            $('#start').hide();
+            audio.background.play();
+            startGame();
+        });
 
         // pinkie is the protagonist, responds to the keys/tick and hater streams
         // also triggers the main Donkey class gameOver function
-        var pinkie = Game.DonkeyPinkie(keys.tick,hater.haterStream);
+        var pinkie = Game.DonkeyPinkie(keys.tick, hater.haterStream, audio, utils);
 
         // coin is the goal, responds to pinkie stream
-        var coin = Game.DonkeyCoin(pinkie.pinkieStream);
+        var coin = Game.DonkeyCoin(pinkie.pinkieStream, audio, utils);
 
         // stat keeps track of coin stream changes
-        var stat = Game.DonkeyStat(coin.coinStream);
+        var stat = Game.DonkeyStat(coin.coinStream, function (points) {
+                totalScore = points;
+            }
+        );
 
-        // DonkeyAudio will call gameStart from this main Donkey class which also provides gameOver logic
-        var donkey = Game.Donkey(keys, ground.groundStream, hater.haterStream,
-                                       pinkie.pinkieStream, coin.coinStream, stat.statStream);
+        function startGame() {
+            var ticked = keys.tick.connect();
+            var groundStreamed = ground.groundStream.connect();
+            var haterStreamed = hater.haterStream.connect();
+            var pinkieStreamed = pinkie.pinkieStream.connect();
+            var coinStreamed = coin.coinStream.connect();
+            var statStreamed = stat.statStream.connect();
 
-        // game kicks off by user triggering event listened for within DonkeyAudio
-        var audio = Game.DonkeyAudio();
+            Rx.Observable
+                .zipArray(keys.tick, ground.groundStream, hater.haterStream, pinkie.pinkieStream, coin.coinStream, stat.statStream)
+                .subscribe(react.renderScene);
+        }
+
+        function gameOver() {
+            location.reload(true);
+        }
+
     });
 }(window.Game));
 

@@ -10,13 +10,14 @@
  */
 ;(function(Game,undefined) {
     var pinkieStream;
-    function DonkeyPinkie(tick,hater) {
+    var pinkieObs = Rx.Observable;
+    function DonkeyPinkie(tick,hater,audio,utils) {
         if (pinkieStream === undefined && tick !== undefined && hater !== undefined) {
             // pinkie is the character
             // - velocity will be applied and then gravity adjusted each
             //   tick scan
             // - the keys are mapped here from tick buffer
-            var _pinkieStream = Rx.Observable.zipArray(tick, hater)
+            var _pinkieStream = pinkieObs.zipArray(tick, hater)
                 .scan({
                     id: "pinkie",
                     baseY: 320,
@@ -27,17 +28,17 @@
                 }, function (p, keysAndHaters) {
                     var keys = keysAndHaters[0];
                     var hater = keysAndHaters[1];
-                    p = Game.DonkeyUtils().velocity(p);
+                    p = utils.velocity(p);
 
-                    if (Game.DonkeyUtils().intersects(p, hater) && !p.gameOver) {
+                    if (utils.intersects(p, hater) && !p.gameOver) {
                         p.gameOver = true;
                         // uses react
                         p.id = "pinkie gameover";
                         p.vy = -20;
                         //console.log('game is over');
-                        Game.DonkeyAudio().effects.play('gameover');
+                        audio.effects.play('gameover');
                         setTimeout(function () {
-                            Game.Donkey().gameOver();
+                            Game.gameOver();
                         }, 10000);
                         p.lives -= 1;
                     }
@@ -64,7 +65,7 @@
                             p.id = "pinkie jumping";
                             p.vy = -22;
                             //console.log('jumping');
-                            Game.DonkeyAudio().effects.play('jump');
+                            audio.effects.play('jump');
                         }
                     }
                     else if (keys != undefined && keys[0] != undefined) {
@@ -72,7 +73,7 @@
                     }
 
                     return p;
-                }).takeWhile(Game.DonkeyUtils().onscreen)
+                }).takeWhile(utils.onscreen)
             .doOnError(function () {
                 this.log('pinkie error');
             }, console)

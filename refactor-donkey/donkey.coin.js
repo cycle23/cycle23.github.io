@@ -10,25 +10,25 @@
  */
 ;(function(Game,undefined) {
     var coinStream;
-    function DonkeyCoin(pinkie) {
-        var initialCoin = {
-            // see game.css
-            id: "coin",
-            vx: -6, vy: 0,
-            x: 1600, y: 40,
-            points: 0
-        };
+    var initialCoin = {
+        // see game.css
+        id: "coin",
+        vx: -6, vy: 0,
+        x: 1600, y: 40,
+        points: 0
+    };
+    function DonkeyCoin(pinkie, audio, utils) {
         if (pinkie !== undefined && coinStream === undefined) {
             // want to be able to detect coin to pinkie
             var _coinStream = pinkie.scan(initialCoin, function (c, pinkie) {
-                c = Game.DonkeyUtils().velocity(c);
+                c = utils.velocity(c);
                 // will be changing this if she touched, so otherwise..
                 if (c.vy < 0) {
                     c.vy = c.vy * 2;
                 }
-                if (c.vy === 0 && !pinkie.gameOver && Game.DonkeyUtils().intersects(c, pinkie)) {
+                if (c.vy === 0 && !pinkie.gameOver && utils.intersects(c, pinkie)) {
                     //console.log('coin is hit');
-                    Game.DonkeyAudio().effects.play('coin');
+                    audio.effects.play('coin');
                     c.vx = 0;
                     c.vy = -1;
                     c.points += 1;
@@ -37,7 +37,7 @@
                     return initialCoin;
                 }
                 if (c.y < -1000) {
-                    v = Game.DonkeyUtils().velocity(initialCoin);
+                    v = utils.velocity(initialCoin);
                     v.vx = v.vx * (c.points + 1);
                     v.points = c.points;
                     return v;

@@ -4,6 +4,8 @@
 
 ;(function(Game,undefined) {
     function DonkeyReact() {
+        console.log("react init");
+
         // ReactJS DOM element creation
         function makeElement(node) {
             return React.DOM.div({

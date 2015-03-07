@@ -10,11 +10,14 @@
  */
 ;(function(Game,undefined) {
     var tick;
+    var obs = Rx.Observable;
+
     function DonkeyKeys() {
         // mousetrap binding, using reactive subject
         // TODO: This may not be completely necessary given use of Rx.DOM anyhow for touch detect
         // It was originally using an ecma6 style lambda, but I watered it down.
         function bindKey(key) {
+            console.log("bind key");
             var sub = new Rx.Subject();
             Mousetrap.bind(key, function () {
                 sub.onNext(key);
@@ -29,7 +32,7 @@
             //   merged events during the interval
             // - TODO: Add observable for mouse clicks, and make sure touch delivers coordinates
             //   Want to use this to allow object interaction. For instance, to destroy hater.
-            var _tick = Rx.Observable.merge(bindKey("space"),
+            var _tick = obs.merge(bindKey("space"),
                 bindKey("up"),
                 Rx.DOM.fromEvent(Game.canvas, "touchstart"))
                 .buffer(Rx.Observable.interval(33))
@@ -51,6 +54,9 @@
             tick = _tick.publish();
 
             console.log('tick init');
+            if (tick === undefined) {
+                console.log("but yet...");
+            }
         }
 
         return {

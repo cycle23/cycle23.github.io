@@ -4,6 +4,8 @@
 ;(function(Game,undefined) {
     function DonkeyUtils() {
         // these were explained as inefficient but simple storage copiers to keep items immutable
+        //console.log("utils init");
+
         function extend(target, src) {
             for (var prop in src) {
                 if (src.hasOwnProperty(prop)) {

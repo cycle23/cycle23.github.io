@@ -10,19 +10,18 @@
  */
 ;(function(Game,undefined) {
     var statStream;
-    var totalScore;
-    function DonkeyStat(coin) {
+    // The stat stream is used to modify the score based on the coin behavior
+    var initialStat = {
+        id: "stat",
+        x: 0, y: 0,
+        points: 0,
+        text: "Init.."
+    };
+
+    function DonkeyStat(coin,setScore) {
 
         // this value is kept out of the observable band to avoid circular references.
         // TODO: Setup a more formal event tracker for this that itself may be based on a Subject?
-
-        // The stat stream is used to modify the score based on the coin behavior
-        var initialStat = {
-            id: "stat",
-            x: 0, y: 0,
-            points: 0,
-            text: "Init.."
-        };
 
         if (statStream === undefined && coin !== undefined) {
 
@@ -33,7 +32,7 @@
                     s.points += coin.points;
                 }
                 s.text = "Points: " + s.points;
-                totalScore = s.points;
+                setScore(s.points);
                 return s;
             })
                 .doOnError(function () {
