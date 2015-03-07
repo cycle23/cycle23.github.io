@@ -38,7 +38,7 @@
                         //console.log('game is over');
                         audio.effects.play('gameover');
                         setTimeout(function () {
-                            Game.gameOver();
+                            utils.gameOver();
                         }, 10000);
                         p.lives -= 1;
                     }

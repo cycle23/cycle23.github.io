@@ -69,10 +69,6 @@
                 .subscribe(react.renderScene);
         }
 
-        function gameOver() {
-            location.reload(true);
-        }
-
     });
 }(window.Game));
 
