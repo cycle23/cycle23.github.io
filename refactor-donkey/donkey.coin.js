@@ -17,7 +17,7 @@
         x: 1600, y: 40,
         points: 0
     };
-    function DonkeyCoin(pinkie, audio, utils) {
+    function DonkeyCoin(pinkie, audio, utils, hater) {
         if (pinkie !== undefined && coinStream === undefined) {
             // want to be able to detect coin to pinkie
             var _coinStream = pinkie.scan(initialCoin, function (c, pinkie) {
@@ -31,14 +31,16 @@
                     audio.effects.play('coin');
                     c.vx = 0;
                     c.vy = -1;
-                    c.points += 1;
+                    c.points += hater.getFactor();
+                    hater.setFactor(0);
                 }
                 if (c.x < -300) {
+                    hater.setFactor(hater.getFactor() + 1);
                     return initialCoin;
                 }
                 if (c.y < -1000) {
                     v = utils.velocity(initialCoin);
-                    v.vx = v.vx * (c.points + 1);
+                    v.vx = v.vx * ((c.points + 1)/2);
                     v.points = c.points;
                     return v;
                 }

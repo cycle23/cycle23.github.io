@@ -32,11 +32,7 @@
         var totalScore = 0;
 
         // hater stream currently uses the ground stream
-        var hater = Game.DonkeyHater(ground.groundStream, utils,
-            function() {
-                return totalScore;
-            }
-        );
+        var hater = Game.DonkeyHater(ground.groundStream, utils);
 
         // audio preloads and enables control for initAudio callback
         var audio = Game.DonkeyAudio();
@@ -52,7 +48,7 @@
         var pinkie = Game.DonkeyPinkie(keys.tick, hater.haterStream, audio, utils);
 
         // coin is the goal, responds to pinkie stream
-        var coin = Game.DonkeyCoin(pinkie.pinkieStream, audio, utils);
+        var coin = Game.DonkeyCoin(pinkie.pinkieStream, audio, utils, hater);
 
         // stat keeps track of coin stream changes
         var stat = Game.DonkeyStat(coin.coinStream, function (points) {

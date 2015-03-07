@@ -10,20 +10,32 @@
  */
 ;(function(Game,undefined) {
     var haterStream;
+    var haterFactor = 0;
     var initialHater = {
         // see game.css
         id: "hater",
         vx: -10, vy: 0,
         x: 1600, y: 300
     };
-    function DonkeyHater(ground, utils, getScore) {
-
+    function DonkeyHater(ground, utils, getFactor, setFactor) {
+        function getFactor() {
+            return haterFactor;
+        }
+        function setFactor(f) {
+            haterFactor = f;
+        }
         if (ground !== undefined && haterStream === undefined) {
                 var _haterStream = ground.scan(initialHater,
                     function (h, g) {
                         h = utils.velocity(h);
-                        h.vx = -8 - (getScore() * 2);
-                        return utils.onscreen(h) ? h : initialHater;
+                        h.vx = -8 - (getFactor() * 2);
+                        if (utils.onscreen(h)) {
+                            return h;
+                        }
+                        else {
+                            setFactor(getFactor()+1);
+                            return initialHater;
+                        }
                     })
                     .doOnError(function () {
                         this.log('hater error');
@@ -39,7 +51,9 @@
                 console.log('hater init');
         }
         return {
-            haterStream: haterStream
+            haterStream: haterStream,
+            getFactor: getFactor,
+            setFactor: setFactor
         }
     }
     Game.DonkeyHater = DonkeyHater;
