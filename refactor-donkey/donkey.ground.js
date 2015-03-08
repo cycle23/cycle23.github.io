@@ -10,10 +10,11 @@
  */
 ;(function(Game,undefined) {
     var groundStream;
+    var groundObs = Rx.Observable;
     function DonkeyGround() {
 
         if (groundStream === undefined) {
-            var _groundStream = Rx.Observable.interval(33)
+            var _groundStream = groundObs.interval(33)
                 .doOnError(function () {
                     this.log('ground error');
                 }, console)

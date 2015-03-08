@@ -35,7 +35,7 @@
             var _tick = obs.merge(bindKey("space"),
                 bindKey("up"),
                 Rx.DOM.fromEvent(Game.canvas, "touchstart"))
-                .buffer(Rx.Observable.interval(33))
+                .buffer(obs.interval(33))
                 // these are useful for debugging, but of course noisy
                 // TODO: make a debug v. release logic instead of manual commenting
                 .doOnError(function () {

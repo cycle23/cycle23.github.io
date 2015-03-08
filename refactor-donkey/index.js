@@ -22,18 +22,6 @@
         // collision and object copying (to maintain a functionally immutable state)
         var utils = Game.DonkeyUtils();
 
-        // the keys (using Mousetrap and RxJS.DOM) and time tick definition
-        var keys = Game.DonkeyKeys();
-
-        // moving background (should correlate to tick time)
-        // TODO: use a global value for the timeslice
-        var ground = Game.DonkeyGround();
-
-        var totalScore = 0;
-
-        // hater stream currently uses the ground stream
-        var hater = Game.DonkeyHater(ground.groundStream, utils);
-
         // audio preloads and enables control for initAudio callback
         var audio = Game.DonkeyAudio();
 
@@ -43,20 +31,45 @@
             startGame();
         });
 
-        // pinkie is the protagonist, responds to the keys/tick and hater streams
-        // also triggers the main Donkey class gameOver function
-        var pinkie = Game.DonkeyPinkie(keys.tick, hater.haterStream, audio, utils);
-
-        // coin is the goal, responds to pinkie stream
-        var coin = Game.DonkeyCoin(pinkie.pinkieStream, audio, utils, hater);
-
-        // stat keeps track of coin stream changes
-        var stat = Game.DonkeyStat(coin.coinStream, function (points) {
-                totalScore = points;
+        function levelEnd(pinkieDied) {
+            if (pinkieDied) {
+                console.log("poor pinkie");
+                setTimeout(function () {
+                    console.log("reload");
+                    location.reload(true);
+                }, 7000);
             }
-        );
+            else {
+                console.log("alright, next level shit!");
+            }
+        }
 
         function startGame() {
+            var totalScore = 0;
+
+            // the keys (using Mousetrap and RxJS.DOM) and time tick definition
+            var keys = Game.DonkeyKeys();
+
+            // moving background (should correlate to tick time)
+            // TODO: use a global value for the timeslice
+            var ground = Game.DonkeyGround();
+
+            // hater stream currently uses the ground stream
+            var hater = Game.DonkeyHater(ground.groundStream, utils);
+
+            // pinkie is the protagonist, responds to the keys/tick and hater streams
+            // also triggers the main Donkey class gameOver function
+            var pinkie = Game.DonkeyPinkie(keys.tick, hater.haterStream, audio, utils, levelEnd);
+
+            // coin is the goal, responds to pinkie stream
+            var coin = Game.DonkeyCoin(pinkie.pinkieStream, audio, utils, hater);
+
+            // stat keeps track of coin stream changes
+            var stat = Game.DonkeyStat(coin.coinStream, function (points) {
+                    totalScore = points;
+                }
+            );
+
             var ticked = keys.tick.connect();
             var groundStreamed = ground.groundStream.connect();
             var haterStreamed = hater.haterStream.connect();
@@ -67,6 +80,8 @@
             Rx.Observable
                 .zipArray(keys.tick, ground.groundStream, hater.haterStream, pinkie.pinkieStream, coin.coinStream, stat.statStream)
                 .subscribe(react.renderScene);
+
+            console.log("subscribed");
         }
 
     });

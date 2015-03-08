@@ -11,7 +11,7 @@
 ;(function(Game,undefined) {
     var pinkieStream;
     var pinkieObs = Rx.Observable;
-    function DonkeyPinkie(tick,hater,audio,utils) {
+    function DonkeyPinkie(tick,hater,audio,utils,levelEnd) {
         if (pinkieStream === undefined && tick !== undefined && hater !== undefined) {
             // pinkie is the character
             // - velocity will be applied and then gravity adjusted each
@@ -38,8 +38,8 @@
                         //console.log('game is over');
                         audio.effects.play('gameover');
                         setTimeout(function () {
-                            utils.gameOver();
-                        }, 10000);
+                            levelEnd(true);
+                        }, 33);
                         p.lives -= 1;
                     }
                     // just drop out.. takeWhile ensures we start over

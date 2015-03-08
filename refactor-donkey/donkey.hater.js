@@ -18,7 +18,7 @@
         x: 1600, y: 300,
         text: "0"
     };
-    function DonkeyHater(ground, utils, getFactor, setFactor) {
+    function DonkeyHater(ground, utils) {
         function getFactor() {
             return haterFactor;
         }

@@ -22,7 +22,9 @@
         }
 
         function gameOver() {
-            location.reload(true);
+            setTimeout(function () {
+                location.reload(true);
+            }, 2500);
         }
 
         // (final | 0 will drop any decimal portion)
