@@ -4,6 +4,7 @@
 ;(function(Game,undefined) {
     function DonkeyUtils() {
         // these were explained as inefficient but simple storage copiers to keep items immutable
+        //console.log("utils init");
         function extend(target, src) {
             for (var prop in src) {
                 if (src.hasOwnProperty(prop)) {
@@ -18,6 +19,10 @@
                 extend(out, arguments[i]);
             }
             return out;
+        }
+
+        function gameOver() {
+            location.reload(true);
         }
 
         // (final | 0 will drop any decimal portion)
@@ -50,7 +55,8 @@
         return {
             intersects : intersects,
             onscreen : onscreen,
-            velocity : velocity
+            velocity : velocity,
+            gameOver: gameOver
         }
     }
 
