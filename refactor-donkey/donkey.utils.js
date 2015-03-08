@@ -49,9 +49,6 @@
 
         // just a quick helper to detect if an item is in the view
         function onscreen(node) {
-            if (node.x < -300 || node.y < -1000 || node.y > 1000) {
-                console.log("node: " + node.x + ", " + node.y);
-            }
             return !(node.x < -300 || node.y < -1000 || node.y > 1000);
         }
 

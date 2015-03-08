@@ -15,7 +15,6 @@
         id: "coin",
         vx: -6, vy: 0,
         x: 1600, y: 40,
-        text: "0",
         points: 0
     };
     function DonkeyCoin(pinkie, audio, utils, hater) {
@@ -32,22 +31,18 @@
                     audio.effects.play('coin');
                     c.vx = 0;
                     c.vy = -1;
-                    c.points += hater.getFactor() + 1;
-                    c.text = c.points;
-                    hater.setFactor(c.points);
+                    c.points += hater.getFactor();
+                    hater.setFactor(0);
                 }
-                if (!utils.onscreen(c)) {
-                    if (c.x < -300) {
-                        hater.setFactor(0);
-                        return initialCoin;
-                    }
-                    if (c.y < -1000) {
-                        v = utils.velocity(initialCoin);
-                        v.vx = v.vx * ((c.points + 1) / 2);
-                        v.points = c.points;
-                        v.text = c.text;
-                        return v;
-                    }
+                if (c.x < -300) {
+                    hater.setFactor(hater.getFactor() + 1);
+                    return initialCoin;
+                }
+                if (c.y < -1000) {
+                    v = utils.velocity(initialCoin);
+                    v.vx = v.vx * ((c.points + 1)/2);
+                    v.points = c.points;
+                    return v;
                 }
                 return c;
             })
