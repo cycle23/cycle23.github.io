@@ -2,7 +2,8 @@
  * Created by Cody on 2/15/2015.
  */
 ;(function(Game,undefined) {
-    function DonkeyUtils() {
+    var levelActive = false;
+    function DonkeyUtils(audio,startGame) {
         // these were explained as inefficient but simple storage copiers to keep items immutable
         //console.log("utils init");
         function extend(target, src) {
@@ -10,6 +11,34 @@
                 if (src.hasOwnProperty(prop)) {
                     target[prop] = src[prop];
                 }
+            }
+        }
+
+        function setActive() {
+            audio.background.play();
+            levelActive = true;
+        }
+
+        function isActive(node) {
+            return levelActive;
+        }
+
+        function levelEnd(pinkieDied) {
+            if (pinkieDied) {
+                console.log("poor pinkie");
+                setTimeout(function () {
+                    console.log("set inactive");
+                    audio.background.stop();
+                    levelActive = false;
+                    setTimeout(function () {
+                        console.log("reload");
+                        //startGame();
+                        location.reload(true);
+                    }, 2000);
+                }, 7000);
+            }
+            else {
+                console.log("alright, next level shit!");
             }
         }
 
@@ -22,9 +51,7 @@
         }
 
         function gameOver() {
-            setTimeout(function () {
-                location.reload(true);
-            }, 2500);
+            levelEnd(true);
         }
 
         // (final | 0 will drop any decimal portion)
@@ -61,7 +88,9 @@
             intersects : intersects,
             onscreen : onscreen,
             velocity : velocity,
-            gameOver: gameOver
+            gameOver: gameOver,
+            setActive: setActive,
+            isActive: isActive
         }
     }
 

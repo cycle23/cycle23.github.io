@@ -26,39 +26,38 @@
             //console.log("setting factor from: " + haterFactor + " to " + f);
             haterFactor = f;
         }
-        if (ground !== undefined && haterStream === undefined) {
-                var _haterStream = ground.scan(initialHater,
-                    function (h, g) {
-                        var f = getFactor();
-                        h = utils.velocity(h);
-                        h.vx = -8 - (f * 2);
-                        if (h.text != f) {
-                            h.text = f;
-                        }
-                        if (utils.onscreen(h)) {
-                            return h;
-                        }
-                        else {
-                            //console.log("hater off screen: " + f);
-                            setFactor(f+1);
-                            var hater = utils.velocity(initialHater);
-                            hater.text = f+1;
-                            return hater;
-                        }
-                    })
-                    .doOnError(function () {
-                        this.log('hater error');
-                    }, console)
-                    .doOnCompleted(function () {
-                        this.log('hater completed');
-                    }, console)
-                    .doOnNext(function () {
-                        //this.log('hater');
-                    }, console);
+        var _haterStream = ground.scan(initialHater,
+            function (h, g) {
+                var f = getFactor();
+                h = utils.velocity(h);
+                h.vx = -8 - (f * 2);
+                if (h.text != f) {
+                    h.text = f;
+                }
+                if (utils.onscreen(h)) {
+                    return h;
+                }
+                else {
+                    //console.log("hater off screen: " + f);
+                    setFactor(f+1);
+                    var hater = utils.velocity(initialHater);
+                    hater.text = f+1;
+                    return hater;
+                }
+            })
+            .doOnError(function () {
+                this.log('hater error');
+            }, console)
+            .doOnCompleted(function () {
+                this.log('hater completed');
+            }, console)
+            .doOnNext(function () {
+                //this.log('hater');
+            }, console);
 
-                haterStream = _haterStream.publish();
-                console.log('hater init');
-        }
+        haterStream = _haterStream.publish();
+        console.log('hater init');
+
         return {
             haterStream: haterStream,
             getFactor: getFactor,

@@ -23,32 +23,29 @@
         // this value is kept out of the observable band to avoid circular references.
         // TODO: Setup a more formal event tracker for this that itself may be based on a Subject?
 
-        if (statStream === undefined && coin !== undefined) {
+        totalScore = 0;
 
-            totalScore = 0;
+        var _statStream = coin.scan(initialStat, function (s, coin) {
+            if (coin.vy === -1) {
+                s.points += coin.points;
+            }
+            s.text = "Points: " + s.points;
+            setScore(s.points);
+            return s;
+        })
+            .doOnError(function () {
+                this.log('stat error');
+            }, console)
+            .doOnCompleted(function () {
+                this.log('stat completed');
+            }, console)
+            .doOnNext(function () {
+                //this.log('stat');
+            }, console);
 
-            var _statStream = coin.scan(initialStat, function (s, coin) {
-                if (coin.vy === -1) {
-                    s.points += coin.points;
-                }
-                s.text = "Points: " + s.points;
-                setScore(s.points);
-                return s;
-            })
-                .doOnError(function () {
-                    this.log('stat error');
-                }, console)
-                .doOnCompleted(function () {
-                    this.log('stat completed');
-                }, console)
-                .doOnNext(function () {
-                    //this.log('stat');
-                }, console);
+        statStream = _statStream.publish();
 
-            statStream = _statStream.publish();
-
-            console.log('stat init');
-        }
+        console.log('stat init');
 
         return {
             statStream: statStream,

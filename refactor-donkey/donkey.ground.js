@@ -11,33 +11,31 @@
 ;(function(Game,undefined) {
     var groundStream;
     var groundObs = Rx.Observable;
-    function DonkeyGround() {
+    function DonkeyGround(utils) {
 
-        if (groundStream === undefined) {
-            var _groundStream = groundObs.interval(33)
-                .doOnError(function () {
-                    this.log('ground error');
-                }, console)
-                .doOnCompleted(function () {
-                    this.log('ground completed');
-                }, console)
-                .doOnNext(function () {
-                    //this.log('ground');
-                }, console)
-                .map(function (x) {
-                    return {
-                        // see game.css
-                        id: "ground",
-                        baseX: 0,
-                        y: 320,
-                        x: ((x % 280) * -8)
-                    };
-                });
+        var _groundStream = groundObs.interval(33).takeWhile(utils.isActive)
+            .doOnError(function () {
+                this.log('ground error');
+            }, console)
+            .doOnCompleted(function () {
+                this.log('ground completed');
+            }, console)
+            .doOnNext(function () {
+                //this.log('ground');
+            }, console)
+            .map(function (x) {
+                return {
+                    // see game.css
+                    id: "ground",
+                    baseX: 0,
+                    y: 320,
+                    x: ((x % 280) * -8)
+                };
+            });
 
-            groundStream = _groundStream.publish();
+        groundStream = _groundStream.publish();
 
-            console.log('ground init');
-        }
+        console.log('ground init');
 
         return {
             groundStream: groundStream
