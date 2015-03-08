@@ -13,62 +13,13 @@
 
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
-
     Rx.DOM.ready().subscribe(function() {
-
-        // react library used to paint the event streams (which carry CSS info) to the screen
-        var react = Game.DonkeyReact();
-
-        // collision and object copying (to maintain a functionally immutable state)
-        var utils = Game.DonkeyUtils();
-
-        // the keys (using Mousetrap and RxJS.DOM) and time tick definition
-        var keys = Game.DonkeyKeys();
-
-        // moving background (should correlate to tick time)
-        // TODO: use a global value for the timeslice
-        var ground = Game.DonkeyGround();
-
-        var totalScore = 0;
-
-        // hater stream currently uses the ground stream
-        var hater = Game.DonkeyHater(ground.groundStream, utils);
-
-        // audio preloads and enables control for initAudio callback
+        // game kicks off by user triggering event listened for within DonkeyAudio
         var audio = Game.DonkeyAudio();
-
-        $(document).on("initAudio", function () {
-            $('#start').hide();
-            audio.background.play();
-            startGame();
-        });
-
-        // pinkie is the protagonist, responds to the keys/tick and hater streams
-        // also triggers the main Donkey class gameOver function
-        var pinkie = Game.DonkeyPinkie(keys.tick, hater.haterStream, audio, utils);
-
-        // coin is the goal, responds to pinkie stream
-        var coin = Game.DonkeyCoin(pinkie.pinkieStream, audio, utils, hater);
-
-        // stat keeps track of coin stream changes
-        var stat = Game.DonkeyStat(coin.coinStream, function (points) {
-                totalScore = points;
-            }
-        );
-
-        function startGame() {
-            var ticked = keys.tick.connect();
-            var groundStreamed = ground.groundStream.connect();
-            var haterStreamed = hater.haterStream.connect();
-            var pinkieStreamed = pinkie.pinkieStream.connect();
-            var coinStreamed = coin.coinStream.connect();
-            var statStreamed = stat.statStream.connect();
-
-            Rx.Observable
-                .zipArray(keys.tick, ground.groundStream, hater.haterStream, pinkie.pinkieStream, coin.coinStream, stat.statStream)
-                .subscribe(react.renderScene);
-        }
-
+        var react = Game.DonkeyReact();
+        var utils = Game.DonkeyUtils();
+        // DonkeyAudio will call gameStart from main Donkey class
+        var donkey = Game.Donkey();
     });
 }(window.Game));
 

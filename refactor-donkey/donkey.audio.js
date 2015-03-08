@@ -1,11 +1,8 @@
-// currently using howler and jquery (for audio ready controls)
 ;(function(Game,undefined) {
-    var backReady = false;
-    var effectsReady = false;
-    function DonkeyAudio(startGame) {
+    function DonkeyAudio() {
         var background = new Howl({
             urls: ['http://cycle23.github.io/media/music/coldwet.mp3',
-                'http://cycle23.github.io/media/music/coldwet.ogg'],
+                   'http://cycle23.github.io/media/music/coldwet.ogg'],
             autoplay: false,
             loop: true,
             volume: 0.25,
@@ -15,7 +12,7 @@
         });
         var effects = new Howl({
             urls: ['http://cycle23.github.io/media/sound/donkeyEffects.mp3',
-                'http://cycle23.github.io/media/sound/donkeyEffects.ogg'],
+                   'http://cycle23.github.io/media/sound/donkeyEffects.ogg'],
             sprite: {
                 coin: [4850, 2050],
                 jump: [10500, 1500],
@@ -26,6 +23,8 @@
                 audioIsReady("effects");
             }
         });
+        var backReady = false;
+        var effectsReady = false;
         function audioIsReady(spriteLabel) {
             if (spriteLabel === "back") {
                 backReady = true;
@@ -38,6 +37,11 @@
                 $("#loading").hide();
             }
         }
+        $(document).on("initAudio", function () {
+            $('#start').hide();
+            background.play();
+            Game.Donkey().startGame();
+        });
 
         return {
             audioIsReady : audioIsReady,
