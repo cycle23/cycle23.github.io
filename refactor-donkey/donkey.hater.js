@@ -14,27 +14,36 @@
     var initialHater = {
         // see game.css
         id: "hater",
-        vx: -10, vy: 0,
-        x: 1600, y: 300
+        vx: -8, vy: 0,
+        x: 1600, y: 300,
+        text: "0"
     };
     function DonkeyHater(ground, utils, getFactor, setFactor) {
         function getFactor() {
             return haterFactor;
         }
         function setFactor(f) {
+            //console.log("setting factor from: " + haterFactor + " to " + f);
             haterFactor = f;
         }
         if (ground !== undefined && haterStream === undefined) {
                 var _haterStream = ground.scan(initialHater,
                     function (h, g) {
+                        var f = getFactor();
                         h = utils.velocity(h);
-                        h.vx = -8 - (getFactor() * 2);
+                        h.vx = -8 - (f * 2);
+                        if (h.text != f) {
+                            h.text = f;
+                        }
                         if (utils.onscreen(h)) {
                             return h;
                         }
                         else {
-                            setFactor(getFactor()+1);
-                            return initialHater;
+                            //console.log("hater off screen: " + f);
+                            setFactor(f+1);
+                            var hater = utils.velocity(initialHater);
+                            hater.text = f+1;
+                            return hater;
                         }
                     })
                     .doOnError(function () {
