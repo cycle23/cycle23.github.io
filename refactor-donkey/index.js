@@ -30,8 +30,19 @@
             startGame();
         });
 
+        function endGame() {
+            console.log("game over buddy");
+            //alert("Your score: " + utils.getScore());
+            setTimeout(function () {
+                location.reload(true);
+            }, 5000);
+        }
+
         function startGame() {
-            var totalScore = 0;
+            if (utils.getLives() === 0) {
+                endGame();
+                return;
+            }
 
             utils.setActive();
 
@@ -53,10 +64,7 @@
             var coin = Game.DonkeyCoin(pinkie.pinkieStream, audio, utils, hater);
 
             // stat keeps track of coin stream changes
-            var stat = Game.DonkeyStat(coin.coinStream, function (points) {
-                    totalScore = points;
-                }
-            );
+            var stat = Game.DonkeyStat(coin.coinStream,utils);
 
             var ticked = keys.tick.connect();
             var groundStreamed = ground.groundStream.connect();

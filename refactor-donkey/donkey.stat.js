@@ -9,28 +9,29 @@
  * Using RxJS elements throughout.
  */
 ;(function(Game,undefined) {
-    var statStream;
-    // The stat stream is used to modify the score based on the coin behavior
-    var initialStat = {
-        id: "stat",
-        x: 0, y: 0,
-        points: 0,
-        text: "Init.."
-    };
 
-    function DonkeyStat(coin,setScore) {
+    function DonkeyStat(coin,utils) {
+        var statStream;
+        // The stat stream is used to modify the score based on the coin behavior
+        var initialStat = {
+            id: "stat",
+            x: 0, y: 0,
+            points: 0,
+            text: "Init.."
+        };
 
         // this value is kept out of the observable band to avoid circular references.
         // TODO: Setup a more formal event tracker for this that itself may be based on a Subject?
 
-        totalScore = 0;
-
         var _statStream = coin.scan(initialStat, function (s, coin) {
+            curScore = utils.getScore();
+
             if (coin.vy === -1) {
                 s.points += coin.points;
+                utils.setScore(curScore + coin.points);
             }
-            s.text = "Points: " + s.points;
-            setScore(s.points);
+            //s.text = "Points: " + s.points;
+            s.text = "Points: " + utils.getScore();
             return s;
         })
             .doOnError(function () {
@@ -48,8 +49,7 @@
         console.log('stat init');
 
         return {
-            statStream: statStream,
-            totalScore: totalScore
+            statStream: statStream
         }
     }
     Game.DonkeyStat = DonkeyStat;

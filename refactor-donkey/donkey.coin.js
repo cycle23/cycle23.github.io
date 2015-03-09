@@ -9,16 +9,16 @@
  * Using RxJS elements throughout.
  */
 ;(function(Game,undefined) {
-    var coinStream;
-    var initialCoin = {
-        // see game.css
-        id: "coin",
-        vx: -6, vy: 0,
-        x: 1600, y: 40,
-        text: "0",
-        points: 0
-    };
     function DonkeyCoin(pinkie, audio, utils, hater) {
+        var coinStream;
+        var initialCoin = {
+            // see game.css
+            id: "coin",
+            vx: -6, vy: 0,
+            x: 1600, y: 40,
+            text: "0",
+            points: 0
+        };
         // want to be able to detect coin to pinkie
         var _coinStream = pinkie.scan(initialCoin, function (c, pinkie) {
             c = utils.velocity(c);

@@ -9,16 +9,18 @@
  * Using RxJS elements throughout.
  */
 ;(function(Game,undefined) {
-    var haterStream;
-    var haterFactor = 0;
-    var initialHater = {
-        // see game.css
-        id: "hater",
-        vx: -8, vy: 0,
-        x: 1600, y: 300,
-        text: "0"
-    };
     function DonkeyHater(ground, utils) {
+        var haterStream;
+        var initialHater = {
+            // see game.css
+            id: "hater",
+            vx: -8, vy: 0,
+            x: 1600, y: 300,
+            text: "0"
+        };
+
+        var haterFactor = 0;
+
         function getFactor() {
             return haterFactor;
         }

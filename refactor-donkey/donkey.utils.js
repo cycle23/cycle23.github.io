@@ -3,6 +3,8 @@
  */
 ;(function(Game,undefined) {
     var levelActive = false;
+    var lives = 3;
+    var score = 0;
     function DonkeyUtils(audio,startGame) {
         // these were explained as inefficient but simple storage copiers to keep items immutable
         //console.log("utils init");
@@ -23,23 +25,48 @@
             return levelActive;
         }
 
+        function setLives(l) {
+            lives = l;
+        }
+
+        function getLives() {
+            return lives;
+        }
+
+        function setScore(s) {
+            score = s;
+        }
+
+        function getScore() {
+            return score;
+        }
+
         function levelEnd(pinkieDied) {
             if (pinkieDied) {
                 console.log("poor pinkie");
                 setTimeout(function () {
+                    score = 0;
                     console.log("set inactive");
                     audio.background.stop();
                     levelActive = false;
                     setTimeout(function () {
                         console.log("reload");
-                        //startGame();
-                        location.reload(true);
+                        startGame();
                     }, 2000);
                 }, 7000);
             }
             else {
-                console.log("alright, next level shit!");
+                levelActive = false;
+                setTimeout(function () {
+                    console.log("alright, next level shit!");
+                    audio.background.stop();
+                    startGame();
+                }, 2000);
             }
+        }
+
+        function nextLevel() {
+            levelEnd(false);
         }
 
         function assoc() {
@@ -90,7 +117,12 @@
             velocity : velocity,
             gameOver: gameOver,
             setActive: setActive,
-            isActive: isActive
+            isActive: isActive,
+            nextLevel: nextLevel,
+            setLives: setLives,
+            getLives: getLives,
+            getScore: getScore,
+            setScore: setScore
         }
     }
 

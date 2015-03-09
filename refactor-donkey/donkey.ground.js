@@ -9,9 +9,9 @@
  * Using RxJS elements throughout.
  */
 ;(function(Game,undefined) {
-    var groundStream;
-    var groundObs = Rx.Observable;
     function DonkeyGround(utils) {
+        var groundStream;
+        var groundObs = Rx.Observable;
 
         var _groundStream = groundObs.interval(33).takeWhile(utils.isActive)
             .doOnError(function () {

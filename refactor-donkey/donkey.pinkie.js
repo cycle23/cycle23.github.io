@@ -9,9 +9,9 @@
  * Using RxJS elements throughout.
  */
 ;(function(Game,undefined) {
-    var pinkieStream;
-    var pinkieObs = Rx.Observable;
-    function DonkeyPinkie(tick,hater,audio,utils,levelEnd) {
+    function DonkeyPinkie(tick,hater,audio,utils,setScore) {
+        var pinkieStream;
+        var pinkieObs = Rx.Observable;
         // pinkie is the character
         // - velocity will be applied and then gravity adjusted each
         //   tick scan
@@ -22,24 +22,48 @@
                 baseY: 320,
                 x: 0, y: 0,
                 vx: 0, vy: 0,
-                lives: 3,
+                lives: utils.getLives(),
+                frames: 0,
+                seconds: 0,
+                text: "0",
                 gameOver: false
             }, function (p, keysAndHaters) {
                 var keys = keysAndHaters[0];
                 var hater = keysAndHaters[1];
                 p = utils.velocity(p);
+                p.frames += 1;
 
-                if (utils.intersects(p, hater) && !p.gameOver) {
-                    p.gameOver = true;
-                    // uses react
-                    p.id = "pinkie gameover";
-                    p.vy = -20;
-                    //console.log('game is over');
-                    audio.effects.play('gameover');
-                    setTimeout(function () {
-                        utils.gameOver();
-                    }, 33);
-                    p.lives -= 1;
+                if (!(p.frames%30)) {
+                    console.log("tock");
+                    p.seconds += 1;
+                    p.text = p.seconds;
+                }
+                if (!p.gameOver) {
+                    if (p.seconds === 30) {
+                        p.id = "pinkie jumping";
+                        p.vy = -22;
+                        //console.log('jumping');
+                        audio.effects.play('jump');
+                        console.log("next level");
+                        utils.setLives(p.lives - 1);
+                        setTimeout(function () {
+                            utils.nextLevel();
+                        }, 0);
+                    }
+                    else {
+                        if (utils.intersects(p, hater)) {
+                            p.gameOver = true;
+                            // uses react
+                            p.id = "pinkie gameover";
+                            p.vy = -20;
+                            //console.log('game is over');
+                            audio.effects.play('gameover');
+                            utils.setLives(p.lives - 1);
+                            setTimeout(function () {
+                                utils.gameOver();
+                            }, 33);
+                        }
+                    }
                 }
                 // just drop out.. takeWhile ensures we start over
                 if (p.gameOver) {

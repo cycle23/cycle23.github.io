@@ -9,10 +9,10 @@
  * Using RxJS elements throughout.
  */
 ;(function(Game,undefined) {
-    var tick;
-    var obs = Rx.Observable;
-
     function DonkeyKeys(utils) {
+        var tick;
+        var obs = Rx.Observable;
+
         // mousetrap binding, using reactive subject
         // TODO: This may not be completely necessary given use of Rx.DOM anyhow for touch detect
         // It was originally using an ecma6 style lambda, but I watered it down.
