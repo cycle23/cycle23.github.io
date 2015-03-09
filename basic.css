@@ -6,21 +6,27 @@
 } 
 
 .outer {
+ -webkit-border-radius: 4px;
+ -moz-border-radius: 4px;
+ border-radius: 4px;
  width: 500px;
  margin: 10px;
- background: #CCBBAA;
+ background: #ACBDDF;
  padding: 10px;
  box-shadow: 10px 10px 5px #888888;
 }
 
 .block-level {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
     box-shadow: 10px 10px 5px #888888;
     width: 300px;
     margin: 20px;
     padding: 20px;
     position: relative;
     float: center;
-    background: #AABB66;
+    background: #DDDD66;
     font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
 
