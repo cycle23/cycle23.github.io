@@ -14,7 +14,7 @@
         var initialHater = {
             // see game.css
             id: "hater",
-            vx: -8, vy: 0,
+            vx: -12, vy: 0,
             x: 1600, y: 300,
             text: "0"
         };
@@ -32,7 +32,7 @@
             function (h, g) {
                 var f = getFactor();
                 h = utils.velocity(h);
-                h.vx = -8 - (f * 2);
+                h.vx = -12 - (f * 2);
                 if (h.text != f) {
                     h.text = f;
                 }

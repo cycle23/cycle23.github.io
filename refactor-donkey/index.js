@@ -32,6 +32,7 @@
 
         function endGame() {
             console.log("game over buddy");
+            utils.setHighScore(utils.getScore());
             //alert("Your score: " + utils.getScore());
             setTimeout(function () {
                 location.reload(true);

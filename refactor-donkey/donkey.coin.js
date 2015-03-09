@@ -14,7 +14,7 @@
         var initialCoin = {
             // see game.css
             id: "coin",
-            vx: -6, vy: 0,
+            vx: -8, vy: 0,
             x: 1600, y: 40,
             text: "0",
             points: 0

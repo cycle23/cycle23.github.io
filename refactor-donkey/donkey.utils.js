@@ -3,7 +3,7 @@
  */
 ;(function(Game,undefined) {
     var levelActive = false;
-    var lives = 3;
+    var lives = 1;
     var score = 0;
     function DonkeyUtils(audio,startGame) {
         // these were explained as inefficient but simple storage copiers to keep items immutable
@@ -39,6 +39,22 @@
 
         function getScore() {
             return score;
+        }
+
+        function highScore() {
+            var high = $.cookie('donkey-highscore');
+            if (high === null || high === undefined) {
+                high = 0;
+            }
+            return high;
+        }
+
+        function setHighScore(high) {
+            console.log("high: " + high);
+            if (high > highScore()) {
+                console.log("set");
+                $.cookie('donkey-highscore',high,{ path: '/' });
+            }
         }
 
         function levelEnd(pinkieDied) {
@@ -122,7 +138,9 @@
             setLives: setLives,
             getLives: getLives,
             getScore: getScore,
-            setScore: setScore
+            setScore: setScore,
+            highScore: highScore,
+            setHighScore: setHighScore
         }
     }
 

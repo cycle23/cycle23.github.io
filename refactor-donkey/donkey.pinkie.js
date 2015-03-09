@@ -9,7 +9,7 @@
  * Using RxJS elements throughout.
  */
 ;(function(Game,undefined) {
-    function DonkeyPinkie(tick,hater,audio,utils,setScore) {
+    function DonkeyPinkie(tick,hater,audio,utils) {
         var pinkieStream;
         var pinkieObs = Rx.Observable;
         // pinkie is the character
@@ -33,13 +33,13 @@
                 p = utils.velocity(p);
                 p.frames += 1;
 
-                if (!(p.frames%30)) {
-                    console.log("tock");
-                    p.seconds += 1;
-                    p.text = p.seconds;
-                }
                 if (!p.gameOver) {
-                    if (p.seconds === 30) {
+                    if (!(p.frames%30)) {
+                        console.log("tock");
+                        p.seconds += 1;
+                        p.text = p.seconds;
+                    }
+                    if (p.seconds === 7) {
                         p.id = "pinkie jumping";
                         p.vy = -22;
                         //console.log('jumping');
