@@ -3,7 +3,7 @@
  */
 ;(function(Game,undefined) {
     var levelActive = false;
-    var lives = 1;
+    var lives = 3;
     var score = 0;
     function DonkeyUtils(audio,startGame) {
         // these were explained as inefficient but simple storage copiers to keep items immutable

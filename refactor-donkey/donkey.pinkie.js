@@ -39,7 +39,7 @@
                         p.seconds += 1;
                         p.text = p.seconds;
                     }
-                    if (p.seconds === 7) {
+                    if (p.seconds === 30) {
                         p.id = "pinkie jumping";
                         p.vy = -22;
                         //console.log('jumping');
