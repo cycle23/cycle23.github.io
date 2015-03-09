@@ -31,9 +31,10 @@
                 utils.setScore(curScore + coin.points);
             }
             //s.text = "Points: " + s.points;
-            s.text = "Points: " + utils.getScore()
-                + " | Levels: " + utils.getLives()
-                + " High Score " + utils.highScore();
+            s.text = "Points [" + utils.getScore()
+                + "] - Levels [" + utils.getLives()
+                + "] - High Score [" + utils.highScore()
+                + "]";
             return s;
         })
             .doOnError(function () {
